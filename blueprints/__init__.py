@@ -18,6 +18,17 @@ CORS(app, origins="*", allow_headers=[
     supports_credentials=True, intercept_exceptions=False)
 jwt = JWTManager(app)
 
+def admin_required(fn):
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        verify_jwt_in_request()
+        claims = get_jwt_claims()
+        if claims['user_type'] != "admin":
+            return {'user_type': 'FORBIDDEN', 'message': 'Admin only'}, 403
+        else:
+            return fn(*args, **kwargs)
+    return wrapper
+
 
 flask_env = os.environ.get('FLASK_ENV', 'Production')
 if flask_env == "Production":
@@ -68,5 +79,11 @@ def after_request(response):
                              'response': json.loads(response.data.decode('utf-8'))
                          }))
     return response
+
+from blueprints.auth import bp_auth
+from blueprints.user.resources import bp_user
+
+app.register_blueprint(bp_auth, url_prefix='/signin')
+app.register_blueprint(bp_user, url_prefix='/user')
 
 db.create_all()
