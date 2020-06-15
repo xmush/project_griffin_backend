@@ -5,6 +5,7 @@ from .model import ProductTypes
 from datetime import datetime
 import werkzeug
 from blueprints import db, app, admin_required
+from blueprints.helper.upload import UploadToFirebase
 
 
 bp_product_type = Blueprint('product_type', __name__)
@@ -56,10 +57,15 @@ class ProductTypeResource(Resource):
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument('name', location='form', required=True)
-        parser.add_argument('icon', location='form', required=True)
+        parser.add_argument('icon', type=werkzeug.datastructures.FileStorage, location='files')
         data = parser.parse_args()
 
-        product_type = ProductTypes(data['name'],data['icon'])
+        img_icon = data['icon']
+        upload_image = UploadToFirebase()
+        link = upload_image.UploadImage(img_icon, 'category_icon')
+
+
+        product_type = ProductTypes(data['name'], link)
         db.session.add(product_type)
         db.session.commit()
 
@@ -84,7 +90,10 @@ class ProductTypeResource(Resource):
             qry.name = qry.name
         
         if data['icon'] is not None and data["icon"] is not "":
-                qry.icon = data['icon']
+            img_icon = data['icon']
+            upload_image = UploadToFirebase()
+            link = upload_image.UploadImage(img_icon, 'category_icon')
+            qry.icon = link
         else:
             qry.icon = qry.icon
 

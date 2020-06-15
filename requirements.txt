@@ -11,3 +11,4 @@ simplecache
 pytest-cov
 flask-cors
 werkzeug==0.16.0
+pyrebase
