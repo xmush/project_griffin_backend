@@ -13,6 +13,10 @@ class Users(db.Model):
     email = db.Column(db.String(100), nullable=False, unique=True)
     user_type = db.Column(db.String(100), nullable=False, default='user')
     is_publisher =  db.Column(db.Boolean, nullable=False, default=False)
+    address = db.Column(db.Text(), nullable=True, default="")
+    profil_pict = db.Column(db.Text(), nullable=True, default="")
+    KTP_number = db.Column(db.String(100), nullable=True, default="")
+    KTP_pict = db.Column(db.Text(), nullable=True, default="")
     password = db.Column(db.String(255))
     salt = db.Column(db.String(255))
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
@@ -26,6 +30,10 @@ class Users(db.Model):
         'email' : fields.String,
         'user_type' : fields.String,
         'is_publisher' : fields.Boolean,
+        'address':fields.String,
+        'profil_pict':fields.String,
+        'KTP_number':fields.String,
+        'KTP_pict':fields.String,
         'password' : fields.String,
         'created_at' : fields.DateTime,
         'updated_at' : fields.DateTime

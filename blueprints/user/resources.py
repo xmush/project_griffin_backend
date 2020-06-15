@@ -3,10 +3,8 @@ from flask_restful import Api, reqparse, Resource, marshal, inputs
 from sqlalchemy import desc
 from .model import Users
 from datetime import datetime
-
-import hashlib
-import uuid
-
+import werkzeug, hashlib, uuid
+from blueprints.helper.upload import UploadToFirebase
 from blueprints import db, app, admin_required
 from flask_jwt_extended import get_jwt_claims, jwt_required
 
@@ -56,11 +54,15 @@ class UserResource(Resource):
     @jwt_required
     def patch(self):
         parser = reqparse.RequestParser()
-        parser.add_argument('name', location='json')
-        parser.add_argument('phone', location='json')
-        parser.add_argument('email', location='json')
-        parser.add_argument('is_publisher', location='json', type=bool)
-        parser.add_argument('password', location='json')
+        parser.add_argument('name', location='form')
+        parser.add_argument('phone', location='form')
+        parser.add_argument('email', location='form')
+        parser.add_argument('is_publisher', location='form', type=bool)
+        parser.add_argument('address', location='form')
+        parser.add_argument('profil_pict', type=werkzeug.datastructures.FileStorage, location='files')
+        parser.add_argument('KTP_number', location='form')
+        parser.add_argument('KTP_pict', type=werkzeug.datastructures.FileStorage, location='files')
+        parser.add_argument('password', location='form')
         args = parser.parse_args()
 
         claims = get_jwt_claims()
@@ -93,6 +95,32 @@ class UserResource(Resource):
             qry.is_publisher = args['is_publisher']
         else:
             qry.is_publisher = qry.is_publisher
+        
+        if args['address'] is not None and args["address"] is not "":
+            qry.address = args['address']
+        else:
+            qry.address = qry.address
+        
+        if args['profil_pict'] is not None and args["profil_pict"] is not "":
+            img_profil = args['profil_pict']
+            upload_image = UploadToFirebase()
+            link = upload_image.UploadImage(img_profil, 'user_profil_pict')
+            qry.profil_pict = link
+        else:
+            qry.profil_pict = qry.profil_pict
+
+        if args['KTP_number'] is not None and args["KTP_number"] is not "":
+            qry.KTP_number = args['KTP_number']
+        else:
+            qry.KTP_number = qry.KTP_number
+
+        if args['KTP_pict'] is not None and args["KTP_pict"] is not "":
+            img_ktp = args['KTP_pict']
+            upload_image = UploadToFirebase()
+            link = upload_image.UploadImage(img_ktp, 'user_KTP_pict')
+            qry.KTP_pict = link
+        else:
+            qry.KTP_pict = qry.KTP_pict
 
         if args['password'] is not None and args["password"] is not "":
             qry.password = hash_pass
@@ -126,6 +154,7 @@ class UserPost(Resource):
         parser.add_argument('email', location='json', required=True)
         parser.add_argument('user_type', location='json',  choices=('user', 'admin'))
         parser.add_argument('password', location='json', required=True)
+        
         
         data = parser.parse_args()
 
