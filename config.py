@@ -20,6 +20,18 @@ class Config():
     JWT_SECRET_KEY = cfg['jwt']['secret_key']
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(days=1)
 
+    # setup config configuration from cfg file 
+    FIREBASECONFIG = {
+            "apiKey" : cfg['firebase']['apiKey'],
+            "authDomain" : cfg['firebase']['authDomain'],
+            "databaseURL" : cfg['firebase']['databaseURL'],
+            "projectId" : cfg['firebase']['projectId'],
+            "storageBucket" : cfg['firebase']['storageBucket'],
+            "messagingSenderId" : cfg['firebase']['messagingSenderId'],
+            "appId" : cfg['firebase']['appId'],
+            "measurementId" : cfg['firebase']['measurementId']
+    }
+
 
 class DevelopmentConfig(Config):
     APP_DEBUG = True
