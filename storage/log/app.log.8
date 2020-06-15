@@ -1,0 +1,23 @@
+[2020-06-14 20:24:34,749] {/home/alta7/Documents/project_griffin_backend_bu/blueprints/__init__.py:79} ERROR - REQUEST_LOG	{"method": "POST", "code": "400 BAD REQUEST", "uri": "/user/profile?", "request": {}, "response": {"message": "The browser (or proxy) sent a request that this server could not understand."}}
+[2020-06-14 20:25:22,929] {/home/alta7/Documents/project_griffin_backend_bu/blueprints/__init__.py:79} ERROR - REQUEST_LOG	{"method": "POST", "code": "400 BAD REQUEST", "uri": "/user/profile?", "request": {}, "response": {"message": "The browser (or proxy) sent a request that this server could not understand."}}
+[2020-06-14 20:26:38,086] {/home/alta7/Documents/project_griffin_backend_bu/blueprints/__init__.py:79} ERROR - REQUEST_LOG	{"method": "POST", "code": "400 BAD REQUEST", "uri": "/user/profile?", "request": {}, "response": {"message": "The browser (or proxy) sent a request that this server could not understand."}}
+[2020-06-14 20:27:10,467] {/home/alta7/Documents/project_griffin_backend_bu/blueprints/__init__.py:79} ERROR - REQUEST_LOG	{"method": "POST", "code": "400 BAD REQUEST", "uri": "/user/profile?", "request": {}, "response": {"message": "The browser (or proxy) sent a request that this server could not understand."}}
+[2020-06-14 20:29:02,202] {/home/alta7/Documents/project_griffin_backend_bu/blueprints/__init__.py:79} ERROR - REQUEST_LOG	{"method": "POST", "code": "400 BAD REQUEST", "uri": "/user/profile?", "request": {}, "response": {"message": "The browser (or proxy) sent a request that this server could not understand."}}
+[2020-06-14 20:30:11,615] {/home/alta7/Documents/project_griffin_backend_bu/blueprints/__init__.py:79} ERROR - REQUEST_LOG	{"method": "POST", "code": "400 BAD REQUEST", "uri": "/user/profile?", "request": null, "response": {"message": {"name": "Missing required parameter in the JSON body"}}}
+[2020-06-14 20:31:23,294] {/home/alta7/Documents/project_griffin_backend_bu/blueprints/__init__.py:79} ERROR - REQUEST_LOG	{"method": "POST", "code": "400 BAD REQUEST", "uri": "/user/profile?", "request": {}, "response": {"message": "The browser (or proxy) sent a request that this server could not understand."}}
+[2020-06-14 20:32:08,347] {/home/alta7/.local/lib/python3.6/site-packages/flask/app.py:1892} ERROR - Exception on /user/profile [POST]
+Traceback (most recent call last):
+  File "/home/alta7/.local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/alta7/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/alta7/.local/lib/python3.6/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/home/alta7/.local/lib/python3.6/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/home/alta7/.local/lib/python3.6/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/home/alta7/Documents/project_griffin_backend_bu/blueprints/user/resources.py", line 121, in post
+    return marshal(user, Users.response_field), 200, {'Content-Type': 'application/json'}
+AttributeError: type object 'Users' has no attribute 'response_field'
+[2020-06-14 20:32:08,350] {/home/alta7/Documents/project_griffin_backend_bu/blueprints/__init__.py:79} ERROR - REQUEST_LOG	{"method": "POST", "code": "500 INTERNAL SERVER ERROR", "uri": "/user/profile?", "request": {"name": "admin", "phone": "082326386609", "email": "mangkok@gmail.com", "user_type": "admin", "password": "admin"}, "response": {"message": "Internal Server Error"}}

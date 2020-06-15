@@ -1,0 +1,85 @@
+[2020-06-14 21:11:24,775] {/home/alta7/.local/lib/python3.6/site-packages/flask/app.py:1892} ERROR - Exception on /user [PATCH]
+Traceback (most recent call last):
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1211, in _execute_context
+    context = constructor(dialect, self, conn, *args)
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 862, in _init_compiled
+    for key in compiled_params
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 862, in <genexpr>
+    for key in compiled_params
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/sql/sqltypes.py", line 1828, in process
+    value = _strict_as_bool(value)
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/sql/sqltypes.py", line 1803, in _strict_as_bool
+    raise TypeError("Not a boolean value: %r" % value)
+TypeError: Not a boolean value: 'True'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/alta7/.local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/alta7/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/alta7/.local/lib/python3.6/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/home/alta7/.local/lib/python3.6/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/home/alta7/.local/lib/python3.6/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/home/alta7/.local/lib/python3.6/site-packages/flask_jwt_extended/view_decorators.py", line 108, in wrapper
+    return fn(*args, **kwargs)
+  File "/home/alta7/Documents/project_griffin_backend_bu/blueprints/user/resources.py", line 105, in patch
+    db.session.commit()
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/orm/scoping.py", line 163, in do
+    return getattr(self.registry(), name)(*args, **kwargs)
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 1042, in commit
+    self.transaction.commit()
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 504, in commit
+    self._prepare_impl()
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 483, in _prepare_impl
+    self.session.flush()
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 2523, in flush
+    self._flush(objects)
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 2664, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/util/langhelpers.py", line 69, in __exit__
+    exc_value, with_traceback=exc_tb,
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 178, in raise_
+    raise exception
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 2624, in _flush
+    flush_context.execute()
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/orm/unitofwork.py", line 422, in execute
+    rec.execute(self)
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/orm/unitofwork.py", line 589, in execute
+    uow,
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/orm/persistence.py", line 236, in save_obj
+    update,
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/orm/persistence.py", line 995, in _emit_update_statements
+    statement, multiparams
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1020, in execute
+    return meth(self, multiparams, params)
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_clauseelement
+    distilled_params,
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1214, in _execute_context
+    e, util.text_type(statement), parameters, None, None
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1518, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 178, in raise_
+    raise exception
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1211, in _execute_context
+    context = constructor(dialect, self, conn, *args)
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 862, in _init_compiled
+    for key in compiled_params
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 862, in <genexpr>
+    for key in compiled_params
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/sql/sqltypes.py", line 1828, in process
+    value = _strict_as_bool(value)
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/sql/sqltypes.py", line 1803, in _strict_as_bool
+    raise TypeError("Not a boolean value: %r" % value)
+sqlalchemy.exc.StatementError: (builtins.TypeError) Not a boolean value: 'True'
+[SQL: UPDATE user SET is_publisher=%(is_publisher)s, salt=%(salt)s, updated_at=%(updated_at)s WHERE user.id = %(user_id)s]
+[parameters: [{'updated_at': datetime.datetime(2020, 6, 14, 21, 11, 24, 772073), 'salt': '33650f56ccfa466ba9e425d36d5e66c0', 'is_publisher': 'True', 'user_id': 3}]]
+[2020-06-14 21:11:24,782] {/home/alta7/Documents/project_griffin_backend_bu/blueprints/__init__.py:79} ERROR - REQUEST_LOG	{"method": "PATCH", "code": "500 INTERNAL SERVER ERROR", "uri": "/user?", "request": {"is_publisher": true}, "response": {"message": "Internal Server Error"}}
+[2020-06-14 21:13:05,246] {/home/alta7/Documents/project_griffin_backend_bu/blueprints/__init__.py:69} WARNING - REQUEST_LOG	{"method": "PATCH", "code": "200 OK", "uri": "/user?", "request": {"password": "alta123"}, "response": {"id": 3, "name": "Bagas Kurniajati", "phone": "081321324324", "email": "jati@gmail.com", "user_type": "user", "is_publisher": false, "password": "359e2669bfc07daea53e70999e0b656e4f4f98f92f55e66f83544498a65260a761667ade3a1f704529d554ba18e0086885b83c339920527f0cdd79d584ba0f3f", "created_at": "Sun, 14 Jun 2020 20:36:02 -0000", "updated_at": "Sun, 14 Jun 2020 21:13:05 -0000"}}
+[2020-06-14 21:13:29,406] {/home/alta7/Documents/project_griffin_backend_bu/blueprints/__init__.py:69} WARNING - REQUEST_LOG	{"method": "GET", "code": "200 OK", "uri": "/signin?phone=081321324324&password=alta123", "request": null, "response": {"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTIxNDQwMDksIm5iZiI6MTU5MjE0NDAwOSwianRpIjoiMGNlY2U2MzItYzdmNS00OTQ5LWFlODMtZWQ2NGFiZDg2MTU0IiwiZXhwIjoxNTkyMjMwNDA5LCJpZGVudGl0eSI6IjA4MTMyMTMyNDMyNCIsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyIsInVzZXJfY2xhaW1zIjp7ImlkIjozLCJuYW1lIjoiQmFnYXMgS3VybmlhamF0aSIsInVzZXJfdHlwZSI6InVzZXIiLCJpc19wdWJsaXNoZXIiOmZhbHNlLCJpZGVudGlmaWVyIjoiYWRzX21hcmtldHBsYWNlIn19.jQoHcDKKAkJ0sUO3PLn_QC82KXlh-GhFrdZdU3gBiRI"}}
