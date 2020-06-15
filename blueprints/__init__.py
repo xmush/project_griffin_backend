@@ -82,8 +82,10 @@ def after_request(response):
 
 from blueprints.auth import bp_auth
 from blueprints.user.resources import bp_user
+from blueprints.product_type.resources import bp_product_type
 
 app.register_blueprint(bp_auth, url_prefix='/signin')
 app.register_blueprint(bp_user, url_prefix='/user')
+app.register_blueprint(bp_product_type, url_prefix='/ads_type')
 
 db.create_all()
