@@ -20,6 +20,7 @@ class Config():
     JWT_SECRET_KEY = cfg['jwt']['secret_key']
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(days=1)
 
+    # setup config configuration from cfg file 
     FIREBASECONFIG = {
             "apiKey" : cfg['firebase']['apiKey'],
             "authDomain" : cfg['firebase']['authDomain'],
