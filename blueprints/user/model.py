@@ -21,6 +21,8 @@ class Users(db.Model):
     salt = db.Column(db.String(255))
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
     updated_at = db.Column(db.DateTime(timezone=True), onupdate=func.now())
+
+    publishers = db.relationship('Publishers', backref='user', lazy=True)
    
 
     response_fields ={

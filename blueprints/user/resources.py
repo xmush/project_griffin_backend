@@ -15,7 +15,6 @@ api = Api(bp_user)
 class UserList(Resource):
     def __init__(self):
         pass
-
     @admin_required
     def get(self):
         parser = reqparse.RequestParser()
@@ -38,12 +37,24 @@ class UserList(Resource):
             rows.append(marshal(row, Users.response_fields))
 
         return rows, 200
+    
+class UserResourceSelf(Resource):
+    def __init__(self):
+        pass
+
+    @jwt_required
+    def get(self):
+        claims = get_jwt_claims()
+        qry = Users.query.get(claims['id'])
+
+        if qry is not None:
+            return marshal(qry, Users.response_fields), 200
+        return {'status': 'NOT_FOUND'}, 404
 
 
 class UserResource(Resource):
     def __init__(self):
         pass
-
     @admin_required
     def get(self, id):
         qry = Users.query.get(id)
@@ -174,5 +185,6 @@ class UserPost(Resource):
 
 
 api.add_resource(UserList, '', '')
+api.add_resource(UserResourceSelf,'/profile/self')
 api.add_resource(UserPost,'/profile')
 api.add_resource(UserResource, '', '/<id>')

@@ -1,8 +1,29 @@
-[2020-06-15 19:36:16,866] {/home/alta7/Documents/project_griffin_backend/blueprints/__init__.py:79} ERROR - REQUEST_LOG	{"method": "GET", "code": "404 NOT FOUND", "uri": "/signin?email=xmush%40gmail.com&password=alta123", "request": null, "response": {"status": "UNAUTHORIZED", "message": "invalid key or secret"}}
-[2020-06-15 19:36:26,522] {/home/alta7/Documents/project_griffin_backend/blueprints/__init__.py:79} ERROR - REQUEST_LOG	{"method": "GET", "code": "404 NOT FOUND", "uri": "/signin?email=xmush%40gmail.com&password=biasa", "request": null, "response": {"status": "UNAUTHORIZED", "message": "invalid key or secret"}}
-[2020-06-15 19:37:24,097] {/home/alta7/Documents/project_griffin_backend/blueprints/__init__.py:69} WARNING - REQUEST_LOG	{"method": "PATCH", "code": "200 OK", "uri": "/user?", "request": null, "response": {"id": 5, "name": "Muhammad Sholeh", "phone": "081321324341", "email": "xmush@gmail.com", "user_type": "user", "is_publisher": false, "address": null, "profil_pict": null, "KTP_number": null, "KTP_pict": null, "password": "a463e8d1c38247ba9b321663f470c6fa26fa0c255cab3dae87c9ffdcfd065b62918c719ad168fa581d26397124775c62b454846117ff4517d17adbbaa4d1d05d", "created_at": "Mon, 15 Jun 2020 14:03:07 -0000", "updated_at": "Mon, 15 Jun 2020 19:37:24 -0000"}}
-[2020-06-15 19:37:33,845] {/home/alta7/Documents/project_griffin_backend/blueprints/__init__.py:69} WARNING - REQUEST_LOG	{"method": "GET", "code": "200 OK", "uri": "/signin?email=xmush%40gmail.com&password=alta123", "request": null, "response": {"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTIyMjQ2NTMsIm5iZiI6MTU5MjIyNDY1MywianRpIjoiZjYxNzk2MmEtMDhlOC00ZDUyLTllNzAtODY3NzU2M2I5YTdiIiwiZXhwIjoxNTkyMzExMDUzLCJpZGVudGl0eSI6InhtdXNoQGdtYWlsLmNvbSIsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyIsInVzZXJfY2xhaW1zIjp7ImlkIjo1LCJuYW1lIjoiTXVoYW1tYWQgU2hvbGVoIiwidXNlcl90eXBlIjoidXNlciIsImlzX3B1Ymxpc2hlciI6ZmFsc2UsImlkZW50aWZpZXIiOiJhZHNfbWFya2V0cGxhY2UifX0.YUxBSMT9dMCzQ5bPB-mrBVih-woiyfv3ehESByaPjUo"}}
-[2020-06-15 19:38:48,618] {/home/alta7/.local/lib/python3.6/site-packages/flask/app.py:1892} ERROR - Exception on /user/profile [POST]
+[2020-06-16 18:38:21,595] {/home/alta7/.local/lib/python3.6/site-packages/flask/app.py:1892} ERROR - Exception on /publisher/edit [PATCH]
+Traceback (most recent call last):
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1284, in _execute_context
+    cursor, statement, parameters, context
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 590, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/alta7/.local/lib/python3.6/site-packages/pymysql/cursors.py", line 170, in execute
+    result = self._query(query)
+  File "/home/alta7/.local/lib/python3.6/site-packages/pymysql/cursors.py", line 328, in _query
+    conn.query(q)
+  File "/home/alta7/.local/lib/python3.6/site-packages/pymysql/connections.py", line 517, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "/home/alta7/.local/lib/python3.6/site-packages/pymysql/connections.py", line 732, in _read_query_result
+    result.read()
+  File "/home/alta7/.local/lib/python3.6/site-packages/pymysql/connections.py", line 1075, in read
+    first_packet = self.connection._read_packet()
+  File "/home/alta7/.local/lib/python3.6/site-packages/pymysql/connections.py", line 684, in _read_packet
+    packet.check_error()
+  File "/home/alta7/.local/lib/python3.6/site-packages/pymysql/protocol.py", line 220, in check_error
+    err.raise_mysql_exception(self._data)
+  File "/home/alta7/.local/lib/python3.6/site-packages/pymysql/err.py", line 109, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.IntegrityError: (1062, "Duplicate entry 'Derby's Ads places' for key 'publisher_name'")
+
+The above exception was the direct cause of the following exception:
+
 Traceback (most recent call last):
   File "/home/alta7/.local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
     rv = self.dispatch_request()
@@ -14,57 +35,71 @@ Traceback (most recent call last):
     return self.dispatch_request(*args, **kwargs)
   File "/home/alta7/.local/lib/python3.6/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
     resp = meth(*args, **kwargs)
-  File "/home/alta7/Documents/project_griffin_backend/blueprints/user/resources.py", line 164, in post
-    user = Users(data['name'], data['phone'], data['email'], data['user_type'], hash_pass, salt)
-TypeError: __init__() missing 4 required positional arguments: 'KTP_number', 'KTP_pict', 'password', and 'salt'
-[2020-06-15 19:38:48,622] {/home/alta7/Documents/project_griffin_backend/blueprints/__init__.py:79} ERROR - REQUEST_LOG	{"method": "POST", "code": "500 INTERNAL SERVER ERROR", "uri": "/user/profile?", "request": {"name": "Andre Novado", "phone": "081321324351", "email": "andreh@gmail.com", "password": "alta123"}, "response": {"message": "Internal Server Error"}}
-[2020-06-15 19:39:44,597] {/home/alta7/.local/lib/python3.6/site-packages/flask/app.py:1892} ERROR - Exception on /user/profile [POST]
-Traceback (most recent call last):
-  File "/home/alta7/.local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/alta7/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/alta7/.local/lib/python3.6/site-packages/flask_restful/__init__.py", line 468, in wrapper
-    resp = resource(*args, **kwargs)
-  File "/home/alta7/.local/lib/python3.6/site-packages/flask/views.py", line 89, in view
-    return self.dispatch_request(*args, **kwargs)
-  File "/home/alta7/.local/lib/python3.6/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
-    resp = meth(*args, **kwargs)
-  File "/home/alta7/Documents/project_griffin_backend/blueprints/user/resources.py", line 169, in post
-    user = Users(data['name'], data['phone'], data['email'], data['user_type'], hash_pass, salt)
-TypeError: __init__() missing 4 required positional arguments: 'KTP_number', 'KTP_pict', 'password', and 'salt'
-[2020-06-15 19:39:44,601] {/home/alta7/Documents/project_griffin_backend/blueprints/__init__.py:79} ERROR - REQUEST_LOG	{"method": "POST", "code": "500 INTERNAL SERVER ERROR", "uri": "/user/profile?", "request": {"name": "Andre Novado", "phone": "081321324351", "email": "andreh@gmail.com", "password": "alta123"}, "response": {"message": "Internal Server Error"}}
-[2020-06-15 19:48:00,994] {/home/alta7/.local/lib/python3.6/site-packages/flask/app.py:1892} ERROR - Exception on /user/profile [POST]
-Traceback (most recent call last):
-  File "/home/alta7/.local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/alta7/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/alta7/.local/lib/python3.6/site-packages/flask_restful/__init__.py", line 468, in wrapper
-    resp = resource(*args, **kwargs)
-  File "/home/alta7/.local/lib/python3.6/site-packages/flask/views.py", line 89, in view
-    return self.dispatch_request(*args, **kwargs)
-  File "/home/alta7/.local/lib/python3.6/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
-    resp = meth(*args, **kwargs)
-  File "/home/alta7/Documents/project_griffin_backend/blueprints/user/resources.py", line 165, in post
-    user = Users(data['name'], data['phone'], data['email'], data['user_type'], hash_pass, salt)
-TypeError: __init__() missing 4 required positional arguments: 'KTP_number', 'KTP_pict', 'password', and 'salt'
-[2020-06-15 19:48:00,997] {/home/alta7/Documents/project_griffin_backend/blueprints/__init__.py:79} ERROR - REQUEST_LOG	{"method": "POST", "code": "500 INTERNAL SERVER ERROR", "uri": "/user/profile?", "request": {"name": "Andre Novado", "phone": "081321324351", "email": "andreh@gmail.com", "password": "alta123"}, "response": {"message": "Internal Server Error"}}
-[2020-06-15 19:53:34,480] {/home/alta7/.local/lib/python3.6/site-packages/flask/app.py:1892} ERROR - Exception on /user/profile [POST]
-Traceback (most recent call last):
-  File "/home/alta7/.local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/alta7/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/alta7/.local/lib/python3.6/site-packages/flask_restful/__init__.py", line 468, in wrapper
-    resp = resource(*args, **kwargs)
-  File "/home/alta7/.local/lib/python3.6/site-packages/flask/views.py", line 89, in view
-    return self.dispatch_request(*args, **kwargs)
-  File "/home/alta7/.local/lib/python3.6/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
-    resp = meth(*args, **kwargs)
-  File "/home/alta7/Documents/project_griffin_backend/blueprints/user/resources.py", line 165, in post
-    user = Users(data['name'], data['phone'], data['email'], data['user_type'], hash_pass, salt)
-TypeError: __init__() missing 4 required positional arguments: 'KTP_number', 'KTP_pict', 'password', and 'salt'
-[2020-06-15 19:53:34,484] {/home/alta7/Documents/project_griffin_backend/blueprints/__init__.py:79} ERROR - REQUEST_LOG	{"method": "POST", "code": "500 INTERNAL SERVER ERROR", "uri": "/user/profile?", "request": {"name": "admin", "phone": "082326386609", "email": "admin@gmail.com", "password": "alta123"}, "response": {"message": "Internal Server Error"}}
-[2020-06-15 19:54:12,290] {/home/alta7/Documents/project_griffin_backend/blueprints/__init__.py:69} WARNING - REQUEST_LOG	{"method": "POST", "code": "200 OK", "uri": "/user/profile?", "request": {"name": "admin", "phone": "082326386609", "email": "admin@gmail.com", "password": "alta123"}, "response": {"id": 1, "name": "admin", "phone": "082326386609", "email": "admin@gmail.com", "user_type": "user", "is_publisher": false, "address": "", "profil_pict": "", "KTP_number": "", "KTP_pict": "", "password": "b3d0cf80cb9bbe89c1c8de3d5093ae44a915cdb8c4344f4c0062b2930395127a0facf2225bdb30857d2788e42439ec62baedcccb0e1690f1023d0782d701500f", "created_at": "Mon, 15 Jun 2020 19:54:12 -0000", "updated_at": null}}
-[2020-06-15 19:56:49,727] {/home/alta7/Documents/project_griffin_backend/blueprints/__init__.py:69} WARNING - REQUEST_LOG	{"method": "POST", "code": "200 OK", "uri": "/user/profile?", "request": {"name": "admin", "phone": "082326386609", "email": "admin@gmail.com", "user_type": "admin", "password": "alta123"}, "response": {"id": 1, "name": "admin", "phone": "082326386609", "email": "admin@gmail.com", "user_type": "admin", "is_publisher": false, "address": "", "profil_pict": "", "KTP_number": "", "KTP_pict": "", "password": "4ca22bfea8b4fb08216ab1a35e9e371565bf8c3f4870c96168a7ebce034dcfa74be4213eb0555e78effe60969b84ee527f5ebcf73c2c09c91edf723780a2eea3", "created_at": "Mon, 15 Jun 2020 19:56:49 -0000", "updated_at": null}}
+  File "/home/alta7/.local/lib/python3.6/site-packages/flask_jwt_extended/view_decorators.py", line 108, in wrapper
+    return fn(*args, **kwargs)
+  File "/home/alta7/Documents/project_griffin_backend/blueprints/publisher/resources.py", line 135, in patch
+    db.session.commit()
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/orm/scoping.py", line 163, in do
+    return getattr(self.registry(), name)(*args, **kwargs)
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 1042, in commit
+    self.transaction.commit()
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 504, in commit
+    self._prepare_impl()
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 483, in _prepare_impl
+    self.session.flush()
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 2523, in flush
+    self._flush(objects)
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 2664, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/util/langhelpers.py", line 69, in __exit__
+    exc_value, with_traceback=exc_tb,
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 178, in raise_
+    raise exception
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 2624, in _flush
+    flush_context.execute()
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/orm/unitofwork.py", line 422, in execute
+    rec.execute(self)
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/orm/unitofwork.py", line 589, in execute
+    uow,
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/orm/persistence.py", line 236, in save_obj
+    update,
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/orm/persistence.py", line 995, in _emit_update_statements
+    statement, multiparams
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1020, in execute
+    return meth(self, multiparams, params)
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_clauseelement
+    distilled_params,
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1324, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1518, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 178, in raise_
+    raise exception
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1284, in _execute_context
+    cursor, statement, parameters, context
+  File "/home/alta7/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 590, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/alta7/.local/lib/python3.6/site-packages/pymysql/cursors.py", line 170, in execute
+    result = self._query(query)
+  File "/home/alta7/.local/lib/python3.6/site-packages/pymysql/cursors.py", line 328, in _query
+    conn.query(q)
+  File "/home/alta7/.local/lib/python3.6/site-packages/pymysql/connections.py", line 517, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "/home/alta7/.local/lib/python3.6/site-packages/pymysql/connections.py", line 732, in _read_query_result
+    result.read()
+  File "/home/alta7/.local/lib/python3.6/site-packages/pymysql/connections.py", line 1075, in read
+    first_packet = self.connection._read_packet()
+  File "/home/alta7/.local/lib/python3.6/site-packages/pymysql/connections.py", line 684, in _read_packet
+    packet.check_error()
+  File "/home/alta7/.local/lib/python3.6/site-packages/pymysql/protocol.py", line 220, in check_error
+    err.raise_mysql_exception(self._data)
+  File "/home/alta7/.local/lib/python3.6/site-packages/pymysql/err.py", line 109, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1062, "Duplicate entry 'Derby's Ads places' for key 'publisher_name'")
+[SQL: UPDATE publisher SET publisher_name=%(publisher_name)s, updated_at=%(updated_at)s WHERE publisher.id = %(publisher_id)s]
+[parameters: {'publisher_name': "Derby's Ads places", 'updated_at': datetime.datetime(2020, 6, 16, 18, 38, 21, 587126), 'publisher_id': 5}]
+(Background on this error at: http://sqlalche.me/e/gkpj)
+[2020-06-16 18:38:21,598] {/home/alta7/Documents/project_griffin_backend/blueprints/__init__.py:79} ERROR - REQUEST_LOG	{"method": "PATCH", "code": "500 INTERNAL SERVER ERROR", "uri": "/publisher/edit?", "request": null, "response": {"message": "Internal Server Error"}}
+[2020-06-16 18:38:41,597] {/home/alta7/Documents/project_griffin_backend/blueprints/__init__.py:69} WARNING - REQUEST_LOG	{"method": "PATCH", "code": "200 OK", "uri": "/publisher/edit?", "request": null, "response": {"id": 5, "user_id": 5, "publisher_name": "Derby's Ads place", "address": "Jalan Terusan Surabaya,  Malang, Jawa Timur", "publisher_pict": "https://firebasestorage.googleapis.com/v0/b/testapp-22a56.appspot.com/o/images%2Fuser_publisher_pict%2FScreenshot%20from%202020-05-31%2021-01-00.png?alt=media&token=d9ba1240-e2c7-4774-ab31-efa1e25a3774", "company_sertificate": "https://firebasestorage.googleapis.com/v0/b/testapp-22a56.appspot.com/o/images%2Fuser_company_sertificate%2FScreenshot%20from%202020-06-09%2012-32-49.png?alt=media&token=b3a79d66-2afb-4dad-9cc4-b628fa70dca8", "npwp_number": "192112918297526244", "npwp_pict": "https://firebasestorage.googleapis.com/v0/b/testapp-22a56.appspot.com/o/images%2Fuser_npwp_pict%2FScreenshot%20from%202020-05-12%2022-13-15.png?alt=media&token=3caa60e6-add0-4359-a692-71cad9b29ea1", "bank_account_name": "DPS Spot", "bank_account_number": "0112345321", "bank_account_detail": "Bank BRI KCP Surabaya", "is_authorized": false, "created_at": "Tue, 16 Jun 2020 18:37:24 -0000", "updated_at": "Tue, 16 Jun 2020 18:38:42 -0000"}}
