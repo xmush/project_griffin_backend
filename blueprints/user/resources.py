@@ -62,6 +62,44 @@ class UserResource(Resource):
             return marshal(qry, Users.response_fields), 200
         return {'status': 'NOT_FOUND'}, 404
 
+    
+
+    @admin_required
+    def delete(self, id):
+        qry = Users.query.get(id)
+        if qry is None:
+            return {'status': 'NOT_FOUND'}, 404
+        db.session.delete(qry)
+        db.session.commit()
+        return {'status': 'DELETED'}, 200
+
+class UserPost(Resource):
+    def __init__(self):
+        pass
+    
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('name', location='json', required=True)
+        parser.add_argument('phone', location='json', required=True)
+        parser.add_argument('email', location='json', required=True)
+        parser.add_argument('user_type', location='json',  choices=('user', 'admin'))
+        parser.add_argument('password', location='json', required=True)
+        
+        
+        data = parser.parse_args()
+
+        salt = uuid.uuid4().hex
+        encoded = ('%s%s' % (data['password'], salt)).encode('utf-8')
+        hash_pass = hashlib.sha512(encoded).hexdigest()
+
+        user = Users(data['name'], data['phone'], data['email'], data['user_type'], hash_pass, salt)
+        db.session.add(user)
+        db.session.commit()
+
+        app.logger.debug('DEBUG : %s', user)
+
+        return marshal(user, Users.response_fields), 200, {'Content-Type': 'application/json'}
+
     @jwt_required
     def patch(self):
         parser = reqparse.RequestParser()
@@ -144,42 +182,6 @@ class UserResource(Resource):
         db.session.commit()
 
         return marshal(qry, Users.response_fields), 200
-
-    @admin_required
-    def delete(self, id):
-        qry = Users.query.get(id)
-        if qry is None:
-            return {'status': 'NOT_FOUND'}, 404
-        db.session.delete(qry)
-        db.session.commit()
-        return {'status': 'DELETED'}, 200
-
-class UserPost(Resource):
-    def __init__(self):
-        pass
-    
-    def post(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument('name', location='json', required=True)
-        parser.add_argument('phone', location='json', required=True)
-        parser.add_argument('email', location='json', required=True)
-        parser.add_argument('user_type', location='json',  choices=('user', 'admin'))
-        parser.add_argument('password', location='json', required=True)
-        
-        
-        data = parser.parse_args()
-
-        salt = uuid.uuid4().hex
-        encoded = ('%s%s' % (data['password'], salt)).encode('utf-8')
-        hash_pass = hashlib.sha512(encoded).hexdigest()
-
-        user = Users(data['name'], data['phone'], data['email'], data['user_type'], hash_pass, salt)
-        db.session.add(user)
-        db.session.commit()
-
-        app.logger.debug('DEBUG : %s', user)
-
-        return marshal(user, Users.response_fields), 200, {'Content-Type': 'application/json'}
 
 
 
