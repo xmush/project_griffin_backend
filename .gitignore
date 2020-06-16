@@ -187,6 +187,9 @@ sketch
 .history
 
 # End of https://www.gitignore.io/api/react,flask,python,visualstudiocode
+*.log.*
+config.cfg
+migrations/
 
 
 *.log.*
