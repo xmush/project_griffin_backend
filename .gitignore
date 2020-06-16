@@ -191,4 +191,4 @@ sketch
 
 *.log.*
 config.cfg
-
+migrations/
