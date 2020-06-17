@@ -176,7 +176,10 @@ class UserPost(Resource):
         else:
             qry.password = qry.password
 
-        qry.salt = salt
+        if args['password'] is not None and args["password"] is not "":
+            qry.salt = salt
+        else:
+            qry.salt = qry.salt
         qry.updated_at = datetime.now()
 
         db.session.commit()

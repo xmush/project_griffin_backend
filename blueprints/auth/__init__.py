@@ -12,7 +12,7 @@ api = Api(bp_auth)
 
 class CreateTokenResource(Resource):
     
-    def get(self):
+    def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument('email', location='args')
         parser.add_argument('phone', location='args')
