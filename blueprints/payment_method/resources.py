@@ -18,6 +18,7 @@ class PaymentMethodList(Resource):
     def get(self):
         parser = reqparse.RequestParser()
         parser.add_argument('p', type=int, location='args', default=1)
+        parser.add_argument('rp', type=int, location='args', default=25)
         args = parser.parse_args()
 
         offset = (args['p'] * args['rp']) - args['rp']
@@ -36,9 +37,9 @@ class PaymentMethodResource(Resource):
         pass
 
     def get(self, id):
-        qry = ProductTypes.query.get(id)
+        qry = PaymentMethods.query.get(id)
         if qry is not None:
-            return marshal(qry, ProductTypes.response_field), 200
+            return marshal(qry, PaymentMethods.response_field), 200
         return {'status': 'NOT_FOUND'}, 404
 
     @admin_required
