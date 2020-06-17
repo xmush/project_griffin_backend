@@ -45,7 +45,6 @@ class Users(db.Model):
         'id' : fields.Integer,
         'name' : fields.String,
         'user_type' : fields.String,
-        'is_publisher' : fields.Boolean
     }
 
     def __init__(self, name, phone, email, user_type, password, salt):

@@ -84,10 +84,12 @@ from blueprints.auth import bp_auth
 from blueprints.user.resources import bp_user
 from blueprints.product_type.resources import bp_product_type
 from blueprints.publisher.resources import bp_publisher
+from blueprints.payment_method.resources import bp_payment_method
 
 app.register_blueprint(bp_auth, url_prefix='/signin')
 app.register_blueprint(bp_user, url_prefix='/user')
 app.register_blueprint(bp_product_type, url_prefix='/ads_type')
 app.register_blueprint(bp_publisher, url_prefix='/publisher')
+app.register_blueprint(bp_payment_method, url_prefix='/payment_method')
 
 db.create_all()
