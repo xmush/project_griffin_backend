@@ -14,9 +14,9 @@ class CreateTokenResource(Resource):
     
     def post(self):
         parser = reqparse.RequestParser()
-        parser.add_argument('email', location='args')
-        parser.add_argument('phone', location='args')
-        parser.add_argument('password', location='args', required=True)
+        parser.add_argument('email', location='json')
+        parser.add_argument('phone', location='json')
+        parser.add_argument('password', location='json', required=True)
         args = parser.parse_args()
 
         if args['email'] is None:
