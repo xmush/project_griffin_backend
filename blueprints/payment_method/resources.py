@@ -37,9 +37,9 @@ class PaymentMethodResource(Resource):
         pass
 
     def get(self, id):
-        qry = PaymentMethods.query.get(id)
+        qry = PaymentMethodsgit .query.get(id)
         if qry is not None:
-            return marshal(qry, PaymentMethods.response_field), 200
+            return marshal(qry, PaymentMethodsgit .response_field), 200
         return {'status': 'NOT_FOUND'}, 404
 
     @admin_required
