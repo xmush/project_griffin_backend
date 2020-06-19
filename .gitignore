@@ -14,7 +14,7 @@ __pycache__/
 
 # C extensions
 *.so
-*.cfg
+
 
 # Distribution / packaging
 .Python
@@ -188,10 +188,9 @@ sketch
 
 # End of https://www.gitignore.io/api/react,flask,python,visualstudiocode
 *.log.*
-config.cfg
+
 migrations/
 
 
 *.log.*
-config.cfg
 migrations/
