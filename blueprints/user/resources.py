@@ -190,6 +190,6 @@ class UserPost(Resource):
 
 
 api.add_resource(UserList, '', '')
-api.add_resource(UserResourceSelf,'/profile/self')
-api.add_resource(UserPost,'/profile')
+api.add_resource(UserResourceSelf,'/profile')
+api.add_resource(UserPost,'/register')
 api.add_resource(UserResource, '', '/<id>')
