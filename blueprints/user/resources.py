@@ -151,8 +151,8 @@ class UserPost(Resource):
         else:
             qry.address = qry.address
         
-        if args['profil_pict'] is not None and args["profil_pict"] is not "":
-            img_profil = args['profil_pict']
+        img_profil = args['profil_pict']
+        if img_profil.filename != "":
             upload_image = UploadToFirebase()
             link = upload_image.UploadImage(img_profil, 'user_profil_pict')
             qry.profil_pict = link
@@ -164,8 +164,8 @@ class UserPost(Resource):
         else:
             qry.KTP_number = qry.KTP_number
 
-        if args['KTP_pict'] is not None and args["KTP_pict"] is not "":
-            img_ktp = args['KTP_pict']
+        img_ktp = args['KTP_pict']
+        if img_ktp.filename != "":
             upload_image = UploadToFirebase()
             link = upload_image.UploadImage(img_ktp, 'user_KTP_pict')
             qry.KTP_pict = link
