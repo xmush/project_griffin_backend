@@ -163,7 +163,8 @@ class PublisherResource(Resource):
     @admin_required
     def patch(self, id):
         parser = reqparse.RequestParser()
-        parser.add_argument('is_authorized', location='json', type=bool)
+        parser.add_argument('is_authorized', location='form',  choices=(
+            'true', 'false'), required=True)
         args = parser.parse_args()
 
         qry = Publishers.query.get(id)
@@ -204,6 +205,10 @@ class UserPostData(Resource):
         
         claims = get_jwt_claims()
         user_id = claims['id']
+        qry = Publishers.query.filter_by(user_id=user_id).first()
+
+        if qry is not None:
+            return {"Status":"You are already a publisher"}, 404
 
         publisher_pict = data['publisher_pict']
         company_sertificate = data['company_sertificate']
@@ -214,7 +219,7 @@ class UserPostData(Resource):
         link_company_sertificate = upload_image.UploadImage(company_sertificate, 'user_company_sertificate')
         link_npwp_pict = upload_image.UploadImage(npwp_pict, 'user_npwp_pict')
 
-        publisher = Publishers(user_id, data['publisher_name'], data['address'], link_publisher_pict, link_company_sertificate, data['npwp_number'], link_npwp_pict, data['bank_account_name'], data['bank_account_number'], data['bank_account_detail'])
+        publisher = Publishers(claims["id"], data['publisher_name'], data['address'], link_publisher_pict, link_company_sertificate, data['npwp_number'], link_npwp_pict, data['bank_account_name'], data['bank_account_number'], data['bank_account_detail'])
         db.session.add(publisher)
         db.session.commit()
 
