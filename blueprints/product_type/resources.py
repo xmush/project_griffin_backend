@@ -89,8 +89,8 @@ class ProductTypeResource(Resource):
         else:
             qry.name = qry.name
         
-        if data['icon'] is not None and data["icon"] is not "":
-            img_icon = data['icon']
+        img_icon = data['icon']
+        if img_icon != "":
             upload_image = UploadToFirebase()
             link = upload_image.UploadImage(img_icon, 'category_icon')
             qry.icon = link
