@@ -12,6 +12,9 @@ class ProductTypes(db.Model):
     icon = db.Column(db.Text())
     created_at = db.Column(db.DateTime(timezone=True),server_default=func.now())
     updated_at = db.Column(db.DateTime(timezone=True),onupdate=func.now())
+    ads_spot = db.relationship("AdsSpots", cascade="all, delete-orphan", passive_deletes=True)    
+
+
     
     response_field = {
         'id': fields.Integer,

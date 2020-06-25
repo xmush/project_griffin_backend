@@ -8,11 +8,11 @@ from sqlalchemy.orm import relationship
 class Users(db.Model):
     __tablename__ = "user"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(100), nullable=False, unique=True)
+    name = db.Column(db.String(100), nullable=False)
     phone = db.Column(db.String(15), nullable=False, unique=True)
     email = db.Column(db.String(100), nullable=False, unique=True)
     user_type = db.Column(db.String(100), nullable=False, default='user')
-    is_publisher =  db.Column(db.Boolean, nullable=False, default=False)
+    is_publisher =  db.Column(db.String(10), nullable=False, default="false")
     address = db.Column(db.Text(), nullable=True, default="")
     profil_pict = db.Column(db.Text(), nullable=True, default="")
     KTP_number = db.Column(db.String(100), nullable=True, default="")
@@ -21,8 +21,7 @@ class Users(db.Model):
     salt = db.Column(db.String(255))
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
     updated_at = db.Column(db.DateTime(timezone=True), onupdate=func.now())
-
-    publishers = db.relationship('Publishers', backref='user', lazy=True)
+    publishers = db.relationship("Publishers", cascade="all, delete-orphan", passive_deletes=True)
    
 
     response_fields ={
@@ -31,7 +30,7 @@ class Users(db.Model):
         'phone' : fields.String,
         'email' : fields.String,
         'user_type' : fields.String,
-        'is_publisher' : fields.Boolean,
+        'is_publisher' : fields.String,
         'address':fields.String,
         'profil_pict':fields.String,
         'KTP_number':fields.String,

@@ -5,6 +5,7 @@ from sqlalchemy.sql import func
 from sqlalchemy.sql.expression import text
 from datetime import datetime
 from sqlalchemy.orm import relationship
+from blueprints.user.model import Users
 
 class Publishers(db.Model):
     __tablename__ = "publisher"
@@ -18,11 +19,13 @@ class Publishers(db.Model):
     bank_account_name = db.Column(db.String(100), nullable=True, default="")
     bank_account_number = db.Column(db.String(100), nullable=True, default="")
     bank_account_detail = db.Column(db.Text(), nullable=True, default="")
-    is_authorized =  db.Column(db.Boolean, nullable=False, default=False)
+    is_authorized =  db.Column(db.String(10), nullable=False, default="false")
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
     updated_at = db.Column(db.DateTime(timezone=True), onupdate=func.now())
 
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, ForeignKey(Users.id, ondelete='CASCADE'), nullable=False)
+    ads_spot = db.relationship("AdsSpots", cascade="all, delete-orphan", passive_deletes=True)
+
    
 
     response_fields ={
@@ -37,7 +40,7 @@ class Publishers(db.Model):
         'bank_account_name':fields.String,
         'bank_account_number':fields.String,
         'bank_account_detail':fields.String,
-        'is_authorized' : fields.Boolean,
+        'is_authorized' : fields.String,
         'created_at' : fields.DateTime,
         'updated_at' : fields.DateTime
         }

@@ -106,7 +106,8 @@ class UserPost(Resource):
         parser.add_argument('name', location='form')
         parser.add_argument('phone', location='form')
         parser.add_argument('email', location='form')
-        parser.add_argument('is_publisher', location='form', type=bool)
+        parser.add_argument('is_publisher', location='form', choices=(
+            'true', 'false'))
         parser.add_argument('address', location='form')
         parser.add_argument('profil_pict', type=werkzeug.datastructures.FileStorage, location='files')
         parser.add_argument('KTP_number', location='form')
