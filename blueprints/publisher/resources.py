@@ -87,7 +87,7 @@ class PublisherEdit(Resource):
             qry.address = qry.address
         
         publisher_pict = args['publisher_pict']
-        if publisher_pict != "":
+        if publisher_pict is not None and publisher_pict != "":
             upload_image = UploadToFirebase()
             link_publisher_pict = upload_image.UploadImage(publisher_pict, 'user_publisher_pict')
             qry.publisher_pict = link_publisher_pict
