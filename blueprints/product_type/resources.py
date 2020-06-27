@@ -90,7 +90,7 @@ class ProductTypeResource(Resource):
             qry.name = qry.name
         
         img_icon = data['icon']
-        if img_icon != "":
+        if img_icon.filename != "":
             upload_image = UploadToFirebase()
             link = upload_image.UploadImage(img_icon, 'category_icon')
             qry.icon = link

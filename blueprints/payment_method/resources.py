@@ -100,7 +100,7 @@ class PaymentMethodResource(Resource):
             qry.bank_account_detail = qry.bank_account_detail
         
         img_picture = data['picture']
-        if img_picture != "":
+        if img_picture.filename != "":
             upload_image = UploadToFirebase()
             link = upload_image.UploadImage(img_picture, 'category_picture')
             qry.picture = link
