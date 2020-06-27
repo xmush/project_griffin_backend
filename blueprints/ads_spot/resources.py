@@ -71,7 +71,8 @@ class AdsSpotResource(Resource):
         parser.add_argument('district', location='form', required=True)
         parser.add_argument('city', location='form', required=True)
         parser.add_argument('province', location='form', required=True)
-        parser.add_argument('coordinate', location='form', required=True)
+        parser.add_argument('latitude', location='form', required=True)
+        parser.add_argument('longitude', location='form', required=True)
         parser.add_argument('length', location='form', required=True)
         parser.add_argument('width', location='form', required=True)
         parser.add_argument('orientation', location='form', required=True)
@@ -93,7 +94,7 @@ class AdsSpotResource(Resource):
         if is_authorized == "false":
             return {"Status":"You are not authorize yet"}, 404
 
-        ads_spot = AdsSpots(publisher_id, data["product_type_id"], data["name"], data["description"], data["street"], data["subdistrict"], data["district"], data["city"], data["province"], data["coordinate"], data["length"], data["width"], data["orientation"], data["facing"], data["price"], data["minimum_duration"], data["side"], data["lighting"], data["lighting_price"], data["banner_price_per_meter"])
+        ads_spot = AdsSpots(publisher_id, data["product_type_id"], data["name"], data["description"], data["street"], data["subdistrict"], data["district"], data["city"], data["province"], data["latitude"], data["longitude"], data["length"], data["width"], data["orientation"], data["facing"], data["price"], data["minimum_duration"], data["side"], data["lighting"], data["lighting_price"], data["banner_price_per_meter"])
         db.session.add(ads_spot)
         db.session.commit()
 
@@ -112,7 +113,8 @@ class AdsSpotResource(Resource):
         parser.add_argument('district', location='form')
         parser.add_argument('city', location='form')
         parser.add_argument('province', location='form')
-        parser.add_argument('coordinate', location='form')
+        parser.add_argument('latitude', location='form')
+        parser.add_argument('longitude', location='form')
         parser.add_argument('length', location='form')
         parser.add_argument('width', location='form')
         parser.add_argument('orientation', location='form')
@@ -175,10 +177,15 @@ class AdsSpotResource(Resource):
         else:
             qry.province = qry.province
         
-        if data['coordinate'] is not None and data["coordinate"] is not "":
-                qry.coordinate = data['coordinate']
+        if data['latitude'] is not None and data["latitude"] is not "":
+                qry.latitude = data['latitude']
         else:
-            qry.coordinate = qry.coordinate
+            qry.latitude = qry.latitude
+        
+        if data['longitude'] is not None and data["longitude"] is not "":
+                qry.longitude = data['longitude']
+        else:
+            qry.longitude = qry.longitude
         
         if data['length'] is not None and data["length"] is not "":
                 qry.length = data['length']

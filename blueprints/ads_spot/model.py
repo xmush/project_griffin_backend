@@ -19,7 +19,8 @@ class AdsSpots(db.Model):
     district = db.Column(db.String(255), nullable=False)
     city = db.Column(db.String(255), nullable=False)
     province = db.Column(db.String(255), nullable=False)
-    coordinate = db.Column(db.String(255))
+    latitude = db.Column(db.Float())
+    longitude = db.Column(db.Float())
     length = db.Column(db.String(255))
     width = db.Column(db.String(255))
     orientation = db.Column(db.String(255))
@@ -51,7 +52,8 @@ class AdsSpots(db.Model):
         'district': fields.String,
         'city': fields.String,
         'province': fields.String,
-        'coordinate': fields.String,
+        'latitude': fields.Float,
+        'longitude': fields.Float,
         'length': fields.String,
         'width': fields.String,
         'orientation': fields.String,
@@ -67,7 +69,7 @@ class AdsSpots(db.Model):
         'updated_at': fields.DateTime,
     }
 
-    def __init__(self, publisher_id, product_type_id, name, description, street, subdistrict, district, city, province, coordinate, length, width, orientation, facing, price, minimum_duration, side, lighting, lighting_price, banner_price_per_meter):
+    def __init__(self, publisher_id, product_type_id, name, description, street, subdistrict, district, city, province, latitude, longitude, coordinate, length, width, orientation, facing, price, minimum_duration, side, lighting, lighting_price, banner_price_per_meter):
 
         self.publisher_id = publisher_id
         self.product_type_id = product_type_id
@@ -78,6 +80,8 @@ class AdsSpots(db.Model):
         self.district = district
         self.city = city
         self.province = province
+        self.latitude = latitude
+        self.longitude = longitude
         self.coordinate = coordinate
         self.length = length
         self.width = width
