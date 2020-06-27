@@ -87,7 +87,7 @@ class PublisherEdit(Resource):
             qry.address = qry.address
         
         publisher_pict = args['publisher_pict']
-        if publisher_pict is not None and publisher_pict != "":
+        if publisher_pict != "":
             upload_image = UploadToFirebase()
             link_publisher_pict = upload_image.UploadImage(publisher_pict, 'user_publisher_pict')
             qry.publisher_pict = link_publisher_pict
@@ -95,7 +95,7 @@ class PublisherEdit(Resource):
             qry.publisher_pict = qry.publisher_pict
         
         company_sertificate = args['company_sertificate']
-        if company_sertificate is not None and company_sertificate != "":
+        if company_sertificate != "":
             upload_image = UploadToFirebase()
             link_company_sertificate = upload_image.UploadImage(company_sertificate, 'user_company_sertificate')
             qry.company_sertificate = link_company_sertificate
@@ -108,7 +108,7 @@ class PublisherEdit(Resource):
             qry.npwp_number = qry.npwp_number
         
         npwp_pict = args['npwp_pict']
-        if npwp_pict is not None and npwp_pict != "":
+        if npwp_pict != "":
             upload_image = UploadToFirebase()
             link_npwp_pict = upload_image.UploadImage(npwp_pict, 'user_npwp_pict')
             qry.npwp_pict = link_npwp_pict
