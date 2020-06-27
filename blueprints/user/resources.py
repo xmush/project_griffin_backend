@@ -62,7 +62,26 @@ class UserResource(Resource):
             return marshal(qry, Users.response_fields), 200
         return {'status': 'NOT_FOUND'}, 404
 
-    
+    @jwt_required
+    def patch(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('is_publisher', location='form', choices=(
+            'true', 'false'))
+        args = parser.parse_args()
+
+        claims = get_jwt_claims()
+        qry = Users.query.get(claims['id'])
+
+        if args['is_publisher'] is not None and args["is_publisher"] is not "":
+                qry.is_publisher = args['is_publisher']
+        else:
+            qry.is_publisher = qry.is_publisher
+        
+        qry.updated_at = datetime.now()
+
+        db.session.commit()
+
+        return marshal(qry, Users.response_fields), 200
 
     @admin_required
     def delete(self, id):
@@ -106,8 +125,6 @@ class UserPost(Resource):
         parser.add_argument('name', location='form')
         parser.add_argument('phone', location='form')
         parser.add_argument('email', location='form')
-        parser.add_argument('is_publisher', location='form', choices=(
-            'true', 'false'))
         parser.add_argument('address', location='form')
         parser.add_argument('profil_pict', type=werkzeug.datastructures.FileStorage, location='files')
         parser.add_argument('KTP_number', location='form')
@@ -140,11 +157,6 @@ class UserPost(Resource):
             qry.email = args['email']
         else:
             qry.email = qry.email
-        
-        if args['is_publisher'] is not None and args["is_publisher"] is not "":
-            qry.is_publisher = args['is_publisher']
-        else:
-            qry.is_publisher = qry.is_publisher
         
         if args['address'] is not None and args["address"] is not "":
             qry.address = args['address']
