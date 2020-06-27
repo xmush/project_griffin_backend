@@ -94,7 +94,28 @@ class AdsSpotResource(Resource):
         if is_authorized == "false":
             return {"Status":"You are not authorize yet"}, 404
 
-        ads_spot = AdsSpots(publisher_id, data["product_type_id"], data["name"], data["description"], data["street"], data["subdistrict"], data["district"], data["city"], data["province"], data["latitude"], data["longitude"], data["length"], data["width"], data["orientation"], data["facing"], data["price"], data["minimum_duration"], data["side"], data["lighting"], data["lighting_price"], data["banner_price_per_meter"])
+        ads_spot = AdsSpots(
+            publisher_id, 
+        data["product_type_id"], 
+        data["name"], 
+        data["description"], 
+        data["street"], 
+        data["subdistrict"], 
+        data["district"], 
+        data["city"], 
+        data["province"], 
+        data["latitude"], 
+        data["longitude"], 
+        data["length"], 
+        data["width"], 
+        data["orientation"], 
+        data["facing"], 
+        data["price"], 
+        data["minimum_duration"], 
+        data["side"], 
+        data["lighting"], 
+        data["lighting_price"], 
+        data["banner_price_per_meter"])
         db.session.add(ads_spot)
         db.session.commit()
 
