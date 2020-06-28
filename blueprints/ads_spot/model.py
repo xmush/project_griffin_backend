@@ -69,7 +69,27 @@ class AdsSpots(db.Model):
         'updated_at': fields.DateTime,
     }
 
-    def __init__(self, publisher_id, product_type_id, name, description, street, subdistrict, district, city, province, latitude, longitude, coordinate, length, width, orientation, facing, price, minimum_duration, side, lighting, lighting_price, banner_price_per_meter):
+    def __init__(self, 
+    publisher_id, 
+    product_type_id, 
+    name, 
+    description, 
+    street, 
+    subdistrict, 
+    district, 
+    city, 
+    province, 
+    latitude, 
+    longitude, 
+    length, 
+    width, 
+    orientation, 
+    facing, 
+    price, 
+    minimum_duration, 
+    side, 
+    lighting, 
+    banner_price_per_meter):
 
         self.publisher_id = publisher_id
         self.product_type_id = product_type_id
@@ -82,7 +102,6 @@ class AdsSpots(db.Model):
         self.province = province
         self.latitude = latitude
         self.longitude = longitude
-        self.coordinate = coordinate
         self.length = length
         self.width = width
         self.orientation = orientation
@@ -91,7 +110,6 @@ class AdsSpots(db.Model):
         self.minimum_duration = minimum_duration
         self.side = side
         self.lighting = lighting
-        self.lighting_price = lighting_price
         self.banner_price_per_meter = banner_price_per_meter
 
     def __repr__(self):
