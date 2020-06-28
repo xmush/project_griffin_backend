@@ -60,7 +60,7 @@ class AdsSpotResource(Resource):
         image = AdsImages.query.filter_by(ads_spot_id=id).all()
         QRY["images"] = marshal(image, AdsImages.response_field)
         if qry is not None:
-            return marshal(qry, AdsSpots.response_fields), 200
+            return QRY, 200
         return {"status":"Data Not Found"}, 404
     
     @jwt_required
