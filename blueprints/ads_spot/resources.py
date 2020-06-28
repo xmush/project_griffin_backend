@@ -61,7 +61,7 @@ class AdsSpotResource(Resource):
         rows = []
         for row in image.all():
             rows.append(marshal(row, AdsImages.response_field))
-        QRY["images"] = row
+        QRY["images"] = rows
         if qry is not None:
             return QRY, 200
         return {"status":"Data Not Found"}, 404
