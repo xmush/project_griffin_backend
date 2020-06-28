@@ -3,7 +3,7 @@ from flask_restful import Api, reqparse, Resource, marshal, inputs
 from sqlalchemy import desc
 from .model import AdsSpots
 from datetime import datetime
-import werkzeug
+import werkzeug, json
 from blueprints import db, app, admin_required
 from flask_jwt_extended import get_jwt_claims, jwt_required
 from blueprints.user.model import Users
