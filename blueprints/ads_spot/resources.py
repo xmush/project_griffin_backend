@@ -89,6 +89,7 @@ class AdsSpotResource(Resource):
         parser.add_argument('lighting', location='form', required=True)
         parser.add_argument('lighting_price', location='form')
         parser.add_argument('banner_price_per_meter', location='form', required=True)
+        parser.add_argument('images', type=werkzeug.datastructures.FileStorage, location='files', action='append', required=True)
         data = parser.parse_args()
 
         claims = get_jwt_claims()
@@ -123,6 +124,17 @@ class AdsSpotResource(Resource):
         data["lighting_price"], 
         data["banner_price_per_meter"])
         db.session.add(ads_spot)
+        db.session.flush()
+
+        for image in data['images'] :
+
+            ads_spot_id = ads_spot.id
+            upload_image = UploadToFirebase()
+            link = upload_image.UploadImage(image, 'ads_spot')
+            description = image.filename
+            images = AdsImages(ads_spot_id, link, description)
+            db.session.add(images)
+
         db.session.commit()
 
         app.logger.debug('DEBUG : %s', ads_spot)
