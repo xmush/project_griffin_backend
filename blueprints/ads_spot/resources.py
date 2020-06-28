@@ -57,7 +57,7 @@ class AdsSpotResource(Resource):
     def get(self, id):
         qry = AdsSpots.query.get(id)
         QRY = marshal(qry, AdsSpots.response_fields)
-        image = AdsImages.filter_by(ads_spot_id=id).all()
+        image = AdsImages.query.filter_by(ads_spot_id=id).all()
         QRY["images"] = marshal(image, AdsImages.response_image)
         if qry is not None:
             return marshal(qry, AdsSpots.response_fields), 200
