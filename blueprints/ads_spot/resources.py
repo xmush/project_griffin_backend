@@ -57,7 +57,7 @@ class AdsSpotResource(Resource):
     def get(self, id):
         qry = AdsSpots.query.get(id)
         if qry is not None:
-            return marshal(qry, Users.response_fields), 200
+            return marshal(qry, AdsSpots.response_fields), 200
         return {"status":"Data Not Found"}, 404
     
     @jwt_required
