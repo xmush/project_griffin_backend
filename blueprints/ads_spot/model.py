@@ -89,7 +89,6 @@ class AdsSpots(db.Model):
     minimum_duration, 
     side, 
     lighting, 
-    lighting_price, 
     banner_price_per_meter):
 
         self.publisher_id = publisher_id
@@ -111,7 +110,6 @@ class AdsSpots(db.Model):
         self.minimum_duration = minimum_duration
         self.side = side
         self.lighting = lighting
-        self.lighting_price = lighting_price
         self.banner_price_per_meter = banner_price_per_meter
 
     def __repr__(self):
