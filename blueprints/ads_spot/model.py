@@ -88,7 +88,7 @@ class AdsSpots(db.Model):
     price, 
     minimum_duration, 
     side, 
-    lighting, 
+    lighting,
     lighting_price,
     banner_price_per_meter):
 
