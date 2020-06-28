@@ -57,8 +57,11 @@ class AdsSpotResource(Resource):
     def get(self, id):
         qry = AdsSpots.query.get(id)
         QRY = marshal(qry, AdsSpots.response_fields)
-        image = AdsImages.query.filter_by(ads_spot_id=id).all()
-        QRY["images"] = marshal(image, AdsImages.response_field)
+        image = AdsImages.query.filter_by(ads_spot_id=id)
+        rows = []
+        for row in image.all():
+            rows.append(marshal(row, AdsImages.response_field))
+        QRY["images"] = row
         if qry is not None:
             return QRY, 200
         return {"status":"Data Not Found"}, 404
