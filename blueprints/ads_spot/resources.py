@@ -81,6 +81,7 @@ class AdsSpotResource(Resource):
         parser.add_argument('minimum_duration', location='form', required=True)
         parser.add_argument('side', location='form', required=True)
         parser.add_argument('lighting', location='form', required=True)
+        parser.add_argument('lighting_price', location='form')
         parser.add_argument('banner_price_per_meter', location='form', required=True)
         parser.add_argument('images', type=werkzeug.datastructures.FileStorage, location='files', action='append', required=True)
         data = parser.parse_args()
@@ -114,6 +115,7 @@ class AdsSpotResource(Resource):
         data["minimum_duration"], 
         data["side"], 
         data["lighting"], 
+        data["lighting_price"], 
         data["banner_price_per_meter"])
         db.session.add(ads_spot)
         db.session.commit()
@@ -143,6 +145,7 @@ class AdsSpotResource(Resource):
         parser.add_argument('minimum_duration', location='form')
         parser.add_argument('side', location='form')
         parser.add_argument('lighting', location='form')
+        parser.add_argument('lighting_price', location='form')
         parser.add_argument('banner_price_per_meter', location='form')
         data = parser.parse_args()
 
@@ -245,6 +248,11 @@ class AdsSpotResource(Resource):
                 qry.lighting = data['lighting']
         else:
             qry.lighting = qry.lighting
+        
+        if data['lighting_price'] is not None and data["lighting_price"] is not "":
+                qry.lighting_price = data['lighting_price']
+        else:
+            qry.lighting_price = qry.lighting_price
         
         if data['banner_price_per_meter'] is not None and data["banner_price_per_meter"] is not "":
                 qry.banner_price_per_meter = data['banner_price_per_meter']
