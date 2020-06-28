@@ -82,6 +82,7 @@ class AdsSpotResource(Resource):
         parser.add_argument('side', location='form', required=True)
         parser.add_argument('lighting', location='form', required=True)
         parser.add_argument('banner_price_per_meter', location='form', required=True)
+        parser.add_argument('images', type=werkzeug.datastructures.FileStorage, location='files', action='append', required=True)
         data = parser.parse_args()
 
         claims = get_jwt_claims()
