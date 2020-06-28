@@ -161,102 +161,102 @@ class AdsSpotResource(Resource):
         if qry is None:
             return {"Status":"Data not found"}, 404
 
-        if data['product_type_id'] is not None and data["product_type_id"] is not "":
+        if data['product_type_id'] is not None and data["product_type_id"] != "":
                 qry.product_type_id = data['product_type_id']
         else:
             qry.product_type_id = qry.product_type_id
 
-        if data['name'] is not None and data["name"] is not "":
+        if data['name'] is not None and data["name"] != "":
                 qry.name = data['name']
         else:
             qry.name = qry.name
         
-        if data['description'] is not None and data["description"] is not "":
+        if data['description'] is not None and data["description"] != "":
                 qry.description = data['description']
         else:
             qry.description = qry.description
         
-        if data['street'] is not None and data["street"] is not "":
+        if data['street'] is not None and data["street"] != "":
                 qry.street = data['street']
         else:
             qry.street = qry.street
         
-        if data['subdistrict'] is not None and data["subdistrict"] is not "":
+        if data['subdistrict'] is not None and data["subdistrict"] != "":
                 qry.subdistrict = data['subdistrict']
         else:
             qry.subdistrict = qry.subdistrict
         
-        if data['district'] is not None and data["district"] is not "":
+        if data['district'] is not None and data["district"] != "":
                 qry.district = data['district']
         else:
             qry.district = qry.district
         
-        if data['city'] is not None and data["city"] is not "":
+        if data['city'] is not None and data["city"] != "":
                 qry.city = data['city']
         else:
             qry.city = qry.city
         
-        if data['province'] is not None and data["province"] is not "":
+        if data['province'] is not None and data["province"] != "":
                 qry.province = data['province']
         else:
             qry.province = qry.province
         
-        if data['latitude'] is not None and data["latitude"] is not "":
+        if data['latitude'] is not None and data["latitude"] != "":
                 qry.latitude = data['latitude']
         else:
             qry.latitude = qry.latitude
         
-        if data['longitude'] is not None and data["longitude"] is not "":
+        if data['longitude'] is not None and data["longitude"] != "":
                 qry.longitude = data['longitude']
         else:
             qry.longitude = qry.longitude
         
-        if data['length'] is not None and data["length"] is not "":
+        if data['length'] is not None and data["length"] != "":
                 qry.length = data['length']
         else:
             qry.length = qry.length
         
-        if data['width'] is not None and data["width"] is not "":
+        if data['width'] is not None and data["width"] != "":
                 qry.width = data['width']
         else:
             qry.width = qry.width
         
-        if data['orientation'] is not None and data["orientation"] is not "":
+        if data['orientation'] is not None and data["orientation"] != "":
                 qry.orientation = data['orientation']
         else:
             qry.orientation = qry.orientation
         
-        if data['facing'] is not None and data["facing"] is not "":
+        if data['facing'] is not None and data["facing"] != "":
                 qry.facing = data['facing']
         else:
             qry.facing = qry.facing
         
-        if data['price'] is not None and data["price"] is not "":
+        if data['price'] is not None and data["price"] != "":
                 qry.price = data['price']
         else:
             qry.price = qry.price
         
-        if data['minimum_duration'] is not None and data["minimum_duration"] is not "":
+        if data['minimum_duration'] is not None and data["minimum_duration"] != "":
                 qry.minimum_duration = data['minimum_duration']
         else:
             qry.minimum_duration = qry.minimum_duration
         
-        if data['side'] is not None and data["side"] is not "":
+        if data['side'] is not None and data["side"] != "":
                 qry.side = data['side']
         else:
             qry.side = qry.side
         
-        if data['lighting'] is not None and data["lighting"] is not "":
+        if data['lighting'] is not None and data["lighting"] != "":
                 qry.lighting = data['lighting']
         else:
             qry.lighting = qry.lighting
         
-        if data['lighting_price'] is not None and data["lighting_price"] is not "":
+        if data['lighting_price'] is not None and data["lighting_price"] != "":
                 qry.lighting_price = data['lighting_price']
         else:
             qry.lighting_price = qry.lighting_price
         
-        if data['banner_price_per_meter'] is not None and data["banner_price_per_meter"] is not "":
+        if data['banner_price_per_meter'] is not None and data["banner_price_per_meter"] != "":
                 qry.banner_price_per_meter = data['banner_price_per_meter']
         else:
             qry.banner_price_per_meter = qry.banner_price_per_meter
