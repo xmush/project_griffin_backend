@@ -30,7 +30,7 @@ class AdsSpots(db.Model):
     minimum_duration = db.Column(db.Integer, nullable=False)
     side = db.Column(db.String(255))
     lighting = db.Column(db.String(255))
-    lighting_price = db.Column(db.Integer, nullable=False)
+    lighting_price = db.Column(db.Integer, default=0)
     banner_price_per_meter = db.Column(db.Integer, nullable=False)
     is_authorized = db.Column(db.String(10), nullable=False, default="false")
     created_at = db.Column(db.DateTime(timezone=True),
