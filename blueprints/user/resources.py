@@ -63,7 +63,12 @@ class UserResourceSelf(Resource):
         qry = Users.query.get(claims['id'])
         if qry is None:
             return {'status': 'NOT_FOUND'}, 404
-            
+
+        
+        salt = uuid.uuid4().hex
+        encoded = ('%s%s' % (args['password'], salt)).encode('utf-8')
+        hash_pass = hashlib.sha512(encoded).hexdigest()
+        
         if args['password'] is not None and args["password"] != "":
             qry.password = hash_pass
         else:
@@ -166,11 +171,6 @@ class UserPost(Resource):
         qry = Users.query.get(claims['id'])
         if qry is None:
             return {'status': 'NOT_FOUND'}, 404
-
-        salt = uuid.uuid4().hex
-        encoded = ('%s%s' % (args['password'], salt)).encode('utf-8')
-        hash_pass = hashlib.sha512(encoded).hexdigest()
-
         
         if args['name'] is not None and args["name"] is not "":
             qry.name = args['name']
