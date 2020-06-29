@@ -213,15 +213,6 @@ class UserPost(Resource):
         else:
             qry.KTP_pict = qry.KTP_pict
 
-        if args['password'] is not None and args["password"] is not "":
-            qry.password = hash_pass
-        else:
-            qry.password = qry.password
-
-        if args['password'] is not None and args["password"] is not "":
-            qry.salt = salt
-        else:
-            qry.salt = qry.salt
         qry.updated_at = datetime.now()
 
         db.session.commit()

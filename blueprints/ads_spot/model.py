@@ -67,6 +67,7 @@ class AdsSpots(db.Model):
         'side': fields.String,
         'lighting': fields.String,
         "lighting_price": fields.Integer,
+"banner_price_per_meter":fields.Integer,
         "is_authorized": fields.String,
         'created_at': fields.DateTime,
         'updated_at': fields.DateTime,

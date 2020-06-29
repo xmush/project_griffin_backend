@@ -10,6 +10,7 @@ from flask_jwt_extended import get_jwt_claims, jwt_required
 from blueprints.user.model import Users
 from blueprints.publisher.model import Publishers
 from blueprints.ads_image.model import AdsImages
+from blueprints.product_type.product_type import ProductTypes
 from blueprints.helper.upload import UploadToFirebase
 
 
@@ -59,10 +60,12 @@ class AdsSpotResource(Resource):
         qry = AdsSpots.query.get(id)
         QRY = marshal(qry, AdsSpots.response_fields)
         image = AdsImages.query.filter_by(ads_spot_id=id)
+        kategori = ProductTypes.query.filter_by(id=qry.product_type_id).first()
         rows = []
         for row in image.all():
             rows.append(marshal(row, AdsImages.response_images.name))
         QRY["images"] = jsonify(rows)
+        QRY["category"] = marshal(kategori, ProductTypes.response_field)
         if QRY is not None:
             return QRY, 200
         return {"status": "Data Not Found"}, 404
