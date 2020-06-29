@@ -60,10 +60,10 @@ class AdsSpotResource(Resource):
         qry = AdsSpots.query.get(id)
         QRY = marshal(qry, AdsSpots.response_fields)
         image = AdsImages.query.filter_by(ads_spot_id=id)
-        kategori = ProductTypes.query.filter_by(id=qry.product_type_id).first()
+        kategori = ProductTypes.query.filter_by(id=QRY["product_type_id"]).first()
         rows = []
         for row in image.all():
-            rows.append(marshal(row, AdsImages.response_images.name))
+            rows.append(marshal(row, AdsImages.response_field))
         QRY["images"] = jsonify(rows)
         QRY["category"] = marshal(kategori, ProductTypes.response_field)
         if QRY is not None:
