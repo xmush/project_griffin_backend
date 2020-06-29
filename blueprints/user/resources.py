@@ -50,7 +50,8 @@ class UserResourceSelf(Resource):
         if qry is not None:
             return marshal(qry, Users.response_fields), 200
         return {'status': 'NOT_FOUND'}, 404
-    
+
+    #edit password user 
     @jwt_required
     def patch(self):
         parser = reqparse.RequestParser()
