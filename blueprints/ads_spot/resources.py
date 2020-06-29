@@ -66,7 +66,7 @@ class AdsSpotResource(Resource):
             rows.append(marshal(row, AdsImages.response_field))
         QRY["images"] = jsonify(rows)
         QRY["category"] = marshal(kategori, ProductTypes.response_field)
-        if QRY is not None:
+        if qry is not None:
             return QRY, 200
         return {"status": "Data Not Found"}, 404
 
@@ -350,7 +350,7 @@ class AuthorizedSpot(Resource):
         if qry is None:
             return {"Status": "Data not Found"}, 404
 
-        if data['is_authorized'] is not None and data["is_authorized"] is not "":
+        if data['is_authorized'] is not None and data["is_authorized"] != "":
             qry.is_authorized = data['is_authorized']
         else:
             qry.is_authorized = qry.is_authorized
