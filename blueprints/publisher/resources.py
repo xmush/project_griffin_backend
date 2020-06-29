@@ -74,12 +74,12 @@ class PublisherEdit(Resource):
         if qry is None:
             return {'status': 'NOT_FOUND'}, 404
 
-        if args['publisher_name'] is not None and args["publisher_name"] is not "":
+        if args['publisher_name'] is not None and args["publisher_name"] != "":
             qry.publisher_name = args['publisher_name']
         else:
             qry.publisher_name = qry.publisher_name
 
-        if args['address'] is not None and args["address"] is not "":
+        if args['address'] is not None and args["address"] != "":
             qry.address = args['address']
         else:
             qry.address = qry.address
@@ -100,7 +100,7 @@ class PublisherEdit(Resource):
         else:
             qry.company_sertificate = qry.company_sertificate
         
-        if args['npwp_number'] is not None and args["npwp_number"] is not "":
+        if args['npwp_number'] is not None and args["npwp_number"] != "":
             qry.npwp_number = args['npwp_number']
         else:
             qry.npwp_number = qry.npwp_number
@@ -113,17 +113,17 @@ class PublisherEdit(Resource):
         else:
             qry.npwp_pict = qry.npwp_pict
 
-        if args['bank_account_name'] is not None and args["bank_account_name"] is not "":
+        if args['bank_account_name'] is not None and args["bank_account_name"] != "":
             qry.bank_account_name = args['bank_account_name']
         else:
             qry.bank_account_name = qry.bank_account_name
 
-        if args['bank_account_number'] is not None and args["bank_account_number"] is not "":
+        if args['bank_account_number'] is not None and args["bank_account_number"] != "":
             qry.bank_account_number = args['bank_account_number']
         else:
             qry.bank_account_number = qry.bank_account_number
         
-        if args['bank_account_detail'] is not None and args["bank_account_detail"] is not "":
+        if args['bank_account_detail'] is not None and args["bank_account_detail"] != "":
             qry.bank_account_detail = args['bank_account_detail']
         else:
             qry.bank_account_detail = qry.bank_account_detail
@@ -170,7 +170,7 @@ class PublisherResource(Resource):
             return {'status': 'NOT_FOUND'}, 404
 
 
-        if args['is_authorized'] is not None and args["is_authorized"] is not "":
+        if args['is_authorized'] is not None and args["is_authorized"] != "":
             qry.is_authorized = args['is_authorized']
         else:
             qry.is_authorized = qry.is_authorized

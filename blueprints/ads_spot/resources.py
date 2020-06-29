@@ -10,7 +10,7 @@ from flask_jwt_extended import get_jwt_claims, jwt_required
 from blueprints.user.model import Users
 from blueprints.publisher.model import Publishers
 from blueprints.ads_image.model import AdsImages
-from blueprints.product_type.product_type import ProductTypes
+from blueprints.product_type.model import ProductTypes
 from blueprints.helper.upload import UploadToFirebase
 
 
