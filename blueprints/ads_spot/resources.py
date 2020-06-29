@@ -61,7 +61,7 @@ class AdsSpotResource(Resource):
         image = AdsImages.query.filter_by(ads_spot_id=id)
         rows = []
         for row in image.all():
-            rows.append(marshal(row, AdsImages.response_images))
+            rows.append(marshal(row, AdsImages.response_images.name))
         QRY["images"] = jsonify(rows)
         if QRY is not None:
             return QRY, 200
