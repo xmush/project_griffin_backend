@@ -47,7 +47,10 @@ class AdsSpotList(Resource):
 
         rows = []
         for row in qry.limit(args['rp']).offset(offset).all():
-            rows.append(marshal(row, AdsSpots.response_fields))
+            QRY = marshal(row, AdsSpots.response_fields)
+            image = AdsImages.query.filter_by(ads_spot_id=QRY['id']).first()
+            QRY["image"] = marshal(image, AdsImages.response_field)
+            rows.append(QRY)
 
         return rows, 200
 
