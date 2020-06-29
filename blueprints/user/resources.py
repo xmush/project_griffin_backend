@@ -51,6 +51,29 @@ class UserResourceSelf(Resource):
             return marshal(qry, Users.response_fields), 200
         return {'status': 'NOT_FOUND'}, 404
 
+    # edit password user profile 
+    @jwt_required
+    def patch(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('password', location='form')
+        args = parser.parse_args()
+        if args['password'] is not None and args["password"] != "":
+            qry.password = hash_pass
+        else:
+            qry.password = qry.password
+
+        if args['password'] is not None and args["password"] != "":
+            qry.salt = salt
+        else:
+            qry.salt = qry.salt
+
+        qry.updated_at = datetime.now()
+
+        db.session.commit()
+
+        return marshal(qry, Users.response_fields), 200
+
+
 
 class UserResource(Resource):
     def __init__(self):
@@ -129,7 +152,6 @@ class UserPost(Resource):
         parser.add_argument('profil_pict', type=werkzeug.datastructures.FileStorage, location='files')
         parser.add_argument('KTP_number', location='form')
         parser.add_argument('KTP_pict', type=werkzeug.datastructures.FileStorage, location='files')
-        parser.add_argument('password', location='form')
         args = parser.parse_args()
 
         claims = get_jwt_claims()
