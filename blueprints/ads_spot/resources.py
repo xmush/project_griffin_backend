@@ -61,12 +61,12 @@ class AdsSpotResource(Resource):
         QRY = marshal(qry, AdsSpots.response_fields)
         image = AdsImages.query.filter_by(ads_spot_id=id)
         kategori = ProductTypes.query.filter_by(id=QRY["product_type_id"]).first()
+        QRY["category"] = marshal(kategori, ProductTypes.response_field)
         rows = []
         for row in image.all():
             rows.append(marshal(row, AdsImages.response_field))
-        QRY["images"] = jsonify(rows)
-        QRY["category"] = marshal(kategori, ProductTypes.response_field)
-        if QRY is not None:
+        QRY["images"] = json.dumps(rows)
+        if qry is not None:
             return QRY, 200
         return {"status": "Data Not Found"}, 404
 
@@ -350,7 +350,7 @@ class AuthorizedSpot(Resource):
         if qry is None:
             return {"Status": "Data not Found"}, 404
 
-        if data['is_authorized'] is not None and data["is_authorized"] is not "":
+        if data['is_authorized'] is not None and data["is_authorized"] != "":
             qry.is_authorized = data['is_authorized']
         else:
             qry.is_authorized = qry.is_authorized
