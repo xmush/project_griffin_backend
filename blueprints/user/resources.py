@@ -57,6 +57,13 @@ class UserResourceSelf(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument('password', location='form')
         args = parser.parse_args()
+
+        claims = get_jwt_claims()
+
+        qry = Users.query.get(claims['id'])
+        if qry is None:
+            return {'status': 'NOT_FOUND'}, 404
+            
         if args['password'] is not None and args["password"] != "":
             qry.password = hash_pass
         else:
