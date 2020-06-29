@@ -65,6 +65,7 @@ class AdsSpotResource(Resource):
         for row in image.all():
             rows.append(marshal(row, AdsImages.response_images.name))
         QRY["images"] = jsonify(rows)
+        QRY["category"] = marshal(kategori, ProductTypes.response_field)
         if QRY is not None:
             return QRY, 200
         return {"status": "Data Not Found"}, 404
