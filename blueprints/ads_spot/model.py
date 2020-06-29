@@ -11,7 +11,7 @@ from sqlalchemy.orm import relationship
 
 class AdsSpots(db.Model):
     __tablename__ = 'ads_spot'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)    
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text())
     street = db.Column(db.Text(), nullable=False)
@@ -37,9 +37,12 @@ class AdsSpots(db.Model):
                            server_default=db.func.now())
     updated_at = db.Column(db.DateTime(timezone=True), onupdate=db.func.now())
 
-    publisher_id = db.Column(db.Integer, ForeignKey(Publishers.id, ondelete='CASCADE'), nullable=False)
-    product_type_id = db.Column(db.Integer, ForeignKey(ProductTypes.id, ondelete='CASCADE'), nullable=False)
-    ads_image = db.relationship("AdsImages", cascade="all, delete-orphan", passive_deletes=True)    
+    publisher_id = db.Column(db.Integer, ForeignKey(
+        Publishers.id, ondelete='CASCADE'), nullable=False)
+    product_type_id = db.Column(db.Integer, ForeignKey(
+        ProductTypes.id, ondelete='CASCADE'), nullable=False)
+    ads_image = db.relationship(
+        "AdsImages", cascade="all, delete-orphan", passive_deletes=True)
 
     response_fields = {
         'id': fields.Integer,
@@ -69,28 +72,32 @@ class AdsSpots(db.Model):
         'updated_at': fields.DateTime,
     }
 
-    def __init__(self, 
-    publisher_id, 
-    product_type_id, 
-    name, 
-    description, 
-    street, 
-    subdistrict, 
-    district, 
-    city, 
-    province, 
-    latitude, 
-    longitude, 
-    length, 
-    width, 
-    orientation, 
-    facing, 
-    price, 
-    minimum_duration, 
-    side, 
-    lighting,
-    lighting_price,
-    banner_price_per_meter):
+    response_images = {
+        'name': fields.String
+    }
+
+    def __init__(self,
+                 publisher_id,
+                 product_type_id,
+                 name,
+                 description,
+                 street,
+                 subdistrict,
+                 district,
+                 city,
+                 province,
+                 latitude,
+                 longitude,
+                 length,
+                 width,
+                 orientation,
+                 facing,
+                 price,
+                 minimum_duration,
+                 side,
+                 lighting,
+                 lighting_price,
+                 banner_price_per_meter):
 
         self.publisher_id = publisher_id
         self.product_type_id = product_type_id
