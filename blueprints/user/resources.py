@@ -51,7 +51,7 @@ class UserResourceSelf(Resource):
             return marshal(qry, Users.response_fields), 200
         return {'status': 'NOT_FOUND'}, 404
 
-    #edit password user 
+    # edit password user profile 
     @jwt_required
     def patch(self):
         parser = reqparse.RequestParser()
