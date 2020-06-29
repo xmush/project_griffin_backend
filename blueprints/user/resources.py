@@ -107,7 +107,7 @@ class UserResource(Resource):
         claims = get_jwt_claims()
         qry = Users.query.get(claims['id'])
 
-        if args['is_publisher'] is not None and args["is_publisher"] is not "":
+        if args['is_publisher'] is not None and args["is_publisher"] != "":
                 qry.is_publisher = args['is_publisher']
         else:
             qry.is_publisher = qry.is_publisher
@@ -172,22 +172,22 @@ class UserPost(Resource):
         if qry is None:
             return {'status': 'NOT_FOUND'}, 404
         
-        if args['name'] is not None and args["name"] is not "":
+        if args['name'] is not None and args["name"] != "":
             qry.name = args['name']
         else:
             qry.name = qry.name
 
-        if args['phone'] is not None and args["phone"] is not "":
+        if args['phone'] is not None and args["phone"] != "":
             qry.phone = args['phone']
         else:
             qry.phone = qry.phone
         
-        if args['email'] is not None and args["email"] is not "":
+        if args['email'] is not None and args["email"] != "":
             qry.email = args['email']
         else:
             qry.email = qry.email
         
-        if args['address'] is not None and args["address"] is not "":
+        if args['address'] is not None and args["address"] != "":
             qry.address = args['address']
         else:
             qry.address = qry.address
@@ -200,7 +200,7 @@ class UserPost(Resource):
         else:
             qry.profil_pict = qry.profil_pict
 
-        if args['KTP_number'] is not None and args["KTP_number"] is not "":
+        if args['KTP_number'] is not None and args["KTP_number"] != "":
             qry.KTP_number = args['KTP_number']
         else:
             qry.KTP_number = qry.KTP_number

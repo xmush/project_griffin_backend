@@ -84,7 +84,7 @@ class ProductTypeResource(Resource):
         if qry is None:
             return {'status': 'NOT_FOUND'}, 404
 
-        if data['name'] is not None and data["name"] is not "":
+        if data['name'] is not None and data["name"] != "":
                 qry.name = data['name']
         else:
             qry.name = qry.name
