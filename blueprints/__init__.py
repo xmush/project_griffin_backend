@@ -49,7 +49,7 @@ def before_request():
     if request.method != 'OPTIONS':  # <-- required
         pass
     else:
-        return {}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': '*', 'Access-Control-Allow-Headers': '*'}
+        return {}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST, PATCH, GET, DELETE', 'Access-Control-Allow-Headers': '*'}
 
 
 @app.after_request
