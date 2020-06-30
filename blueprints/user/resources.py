@@ -51,6 +51,41 @@ class UserResourceSelf(Resource):
             return marshal(qry, Users.response_fields), 200
         return {'status': 'NOT_FOUND'}, 404
 
+    # edit password user profile 
+    @jwt_required
+    def patch(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('password', location='form')
+        args = parser.parse_args()
+
+        claims = get_jwt_claims()
+
+        qry = Users.query.get(claims['id'])
+        if qry is None:
+            return {'status': 'NOT_FOUND'}, 404
+
+        
+        salt = uuid.uuid4().hex
+        encoded = ('%s%s' % (args['password'], salt)).encode('utf-8')
+        hash_pass = hashlib.sha512(encoded).hexdigest()
+        
+        if args['password'] is not None and args["password"] != "":
+            qry.password = hash_pass
+        else:
+            qry.password = qry.password
+
+        if args['password'] is not None and args["password"] != "":
+            qry.salt = salt
+        else:
+            qry.salt = qry.salt
+
+        qry.updated_at = datetime.now()
+
+        db.session.commit()
+
+        return marshal(qry, Users.response_fields), 200
+
+
 
 class UserResource(Resource):
     def __init__(self):
@@ -62,7 +97,26 @@ class UserResource(Resource):
             return marshal(qry, Users.response_fields), 200
         return {'status': 'NOT_FOUND'}, 404
 
-    
+    @jwt_required
+    def patch(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('is_publisher', location='form', choices=(
+            'true', 'false'))
+        args = parser.parse_args()
+
+        claims = get_jwt_claims()
+        qry = Users.query.get(claims['id'])
+
+        if args['is_publisher'] is not None and args["is_publisher"] != "":
+                qry.is_publisher = args['is_publisher']
+        else:
+            qry.is_publisher = qry.is_publisher
+        
+        qry.updated_at = datetime.now()
+
+        db.session.commit()
+
+        return marshal(qry, Users.response_fields), 200
 
     @admin_required
     def delete(self, id):
@@ -106,13 +160,10 @@ class UserPost(Resource):
         parser.add_argument('name', location='form')
         parser.add_argument('phone', location='form')
         parser.add_argument('email', location='form')
-        parser.add_argument('is_publisher', location='form', choices=(
-            'true', 'false'))
         parser.add_argument('address', location='form')
         parser.add_argument('profil_pict', type=werkzeug.datastructures.FileStorage, location='files')
         parser.add_argument('KTP_number', location='form')
         parser.add_argument('KTP_pict', type=werkzeug.datastructures.FileStorage, location='files')
-        parser.add_argument('password', location='form')
         args = parser.parse_args()
 
         claims = get_jwt_claims()
@@ -120,33 +171,23 @@ class UserPost(Resource):
         qry = Users.query.get(claims['id'])
         if qry is None:
             return {'status': 'NOT_FOUND'}, 404
-
-        salt = uuid.uuid4().hex
-        encoded = ('%s%s' % (args['password'], salt)).encode('utf-8')
-        hash_pass = hashlib.sha512(encoded).hexdigest()
-
         
-        if args['name'] is not None and args["name"] is not "":
+        if args['name'] is not None and args["name"] != "":
             qry.name = args['name']
         else:
             qry.name = qry.name
 
-        if args['phone'] is not None and args["phone"] is not "":
+        if args['phone'] is not None and args["phone"] != "":
             qry.phone = args['phone']
         else:
             qry.phone = qry.phone
         
-        if args['email'] is not None and args["email"] is not "":
+        if args['email'] is not None and args["email"] != "":
             qry.email = args['email']
         else:
             qry.email = qry.email
         
-        if args['is_publisher'] is not None and args["is_publisher"] is not "":
-            qry.is_publisher = args['is_publisher']
-        else:
-            qry.is_publisher = qry.is_publisher
-        
-        if args['address'] is not None and args["address"] is not "":
+        if args['address'] is not None and args["address"] != "":
             qry.address = args['address']
         else:
             qry.address = qry.address
@@ -159,7 +200,7 @@ class UserPost(Resource):
         else:
             qry.profil_pict = qry.profil_pict
 
-        if args['KTP_number'] is not None and args["KTP_number"] is not "":
+        if args['KTP_number'] is not None and args["KTP_number"] != "":
             qry.KTP_number = args['KTP_number']
         else:
             qry.KTP_number = qry.KTP_number
@@ -172,15 +213,6 @@ class UserPost(Resource):
         else:
             qry.KTP_pict = qry.KTP_pict
 
-        if args['password'] is not None and args["password"] is not "":
-            qry.password = hash_pass
-        else:
-            qry.password = qry.password
-
-        if args['password'] is not None and args["password"] is not "":
-            qry.salt = salt
-        else:
-            qry.salt = qry.salt
         qry.updated_at = datetime.now()
 
         db.session.commit()

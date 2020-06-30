@@ -74,20 +74,18 @@ class PublisherEdit(Resource):
         if qry is None:
             return {'status': 'NOT_FOUND'}, 404
 
-       
-        
-        if args['publisher_name'] is not None and args["publisher_name"] is not "":
+        if args['publisher_name'] is not None and args["publisher_name"] != "":
             qry.publisher_name = args['publisher_name']
         else:
             qry.publisher_name = qry.publisher_name
 
-        if args['address'] is not None and args["address"] is not "":
+        if args['address'] is not None and args["address"] != "":
             qry.address = args['address']
         else:
             qry.address = qry.address
         
         publisher_pict = args['publisher_pict']
-        if publisher_pict != "":
+        if publisher_pict.filename != "":
             upload_image = UploadToFirebase()
             link_publisher_pict = upload_image.UploadImage(publisher_pict, 'user_publisher_pict')
             qry.publisher_pict = link_publisher_pict
@@ -95,37 +93,37 @@ class PublisherEdit(Resource):
             qry.publisher_pict = qry.publisher_pict
         
         company_sertificate = args['company_sertificate']
-        if company_sertificate != "":
+        if company_sertificate.filename != "":
             upload_image = UploadToFirebase()
             link_company_sertificate = upload_image.UploadImage(company_sertificate, 'user_company_sertificate')
             qry.company_sertificate = link_company_sertificate
         else:
             qry.company_sertificate = qry.company_sertificate
         
-        if args['npwp_number'] is not None and args["npwp_number"] is not "":
+        if args['npwp_number'] is not None and args["npwp_number"] != "":
             qry.npwp_number = args['npwp_number']
         else:
             qry.npwp_number = qry.npwp_number
         
         npwp_pict = args['npwp_pict']
-        if npwp_pict != "":
+        if npwp_pict.filename != "":
             upload_image = UploadToFirebase()
             link_npwp_pict = upload_image.UploadImage(npwp_pict, 'user_npwp_pict')
             qry.npwp_pict = link_npwp_pict
         else:
             qry.npwp_pict = qry.npwp_pict
 
-        if args['bank_account_name'] is not None and args["bank_account_name"] is not "":
+        if args['bank_account_name'] is not None and args["bank_account_name"] != "":
             qry.bank_account_name = args['bank_account_name']
         else:
             qry.bank_account_name = qry.bank_account_name
 
-        if args['bank_account_number'] is not None and args["bank_account_number"] is not "":
+        if args['bank_account_number'] is not None and args["bank_account_number"] != "":
             qry.bank_account_number = args['bank_account_number']
         else:
             qry.bank_account_number = qry.bank_account_number
         
-        if args['bank_account_detail'] is not None and args["bank_account_detail"] is not "":
+        if args['bank_account_detail'] is not None and args["bank_account_detail"] != "":
             qry.bank_account_detail = args['bank_account_detail']
         else:
             qry.bank_account_detail = qry.bank_account_detail
@@ -172,7 +170,7 @@ class PublisherResource(Resource):
             return {'status': 'NOT_FOUND'}, 404
 
 
-        if args['is_authorized'] is not None and args["is_authorized"] is not "":
+        if args['is_authorized'] is not None and args["is_authorized"] != "":
             qry.is_authorized = args['is_authorized']
         else:
             qry.is_authorized = qry.is_authorized

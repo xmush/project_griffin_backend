@@ -79,28 +79,28 @@ class PaymentMethodResource(Resource):
         if qry is None:
             return {'status': 'NOT_FOUND'}, 404
 
-        if data['name'] is not None and data["name"] is not "":
+        if data['name'] is not None and data["name"] != "":
                 qry.name = data['name']
         else:
             qry.name = qry.name
         
-        if data['bank_account_name'] is not None and data["bank_account_name"] is not "":
+        if data['bank_account_name'] is not None and data["bank_account_name"] != "":
                 qry.bank_account_name = data['bank_account_name']
         else:
             qry.bank_account_name = qry.bank_account_name
         
-        if data['bank_account_number'] is not None and data["bank_account_number"] is not "":
+        if data['bank_account_number'] is not None and data["bank_account_number"] != "":
                 qry.bank_account_number = data['bank_account_number']
         else:
             qry.bank_account_number = qry.bank_account_number
         
-        if data['bank_account_detail'] is not None and data["bank_account_detail"] is not "":
+        if data['bank_account_detail'] is not None and data["bank_account_detail"] != "":
                 qry.bank_account_detail = data['bank_account_detail']
         else:
             qry.bank_account_detail = qry.bank_account_detail
         
         img_picture = data['picture']
-        if img_picture != "":
+        if img_picture.filename != "":
             upload_image = UploadToFirebase()
             link = upload_image.UploadImage(img_picture, 'category_picture')
             qry.picture = link
