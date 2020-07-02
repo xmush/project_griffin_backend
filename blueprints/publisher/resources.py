@@ -140,7 +140,7 @@ class PublisherEdit(Resource):
         claims = get_jwt_claims()
         qry = Publishers.query.filter_by(user_id=claims['id']).first()
         if qry is None:
-            return {'status': 'NOT_FOUND'}, 404
+            return {'status': 'Data Not Found'}, 404
         db.session.delete(qry)
         db.session.commit()
         return {'status': 'DELETED'}, 200
