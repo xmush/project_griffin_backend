@@ -60,7 +60,7 @@ class TransactionResource(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument("payment_method_id", type=int, location="json")
         parser.add_argument("ads_spot_id", type=int, location="json")
-        parser.add_argument("starting_date", type=lambda x: datetime.strptime(x,'%Y-%m-%dT%H:%M:%S'), location="json")
+        parser.add_argument("starting_date", type=lambda x: datetime.strptime(x,"%Y-%m-%dT%H:%M:%S"), location="json")
         parser.add_argument("durations", location="json")
         parser.add_argument("purpose", location="json")
         parser.add_argument("design", location="json")
