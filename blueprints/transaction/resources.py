@@ -55,7 +55,7 @@ class TransactionResource(Resource):
     def __init__(self):
         pass
 
-    @jwt_required #advertiser try to rent ads_spot
+    @jwt_required #advertiser try to rent ads_spotS
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument("payment_method_id", type=int, location="json")
