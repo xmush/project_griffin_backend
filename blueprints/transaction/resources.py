@@ -185,6 +185,7 @@ class TransactionCheckout(Resource):
         
         return {"Status":"Anda berhasil checkout"}, 200
     
+    @jwt_required
     def get(self): #publisher get finished transaction data 
         claims = get_jwt_claims()
         publisher = Publishers.query.filter_by(user_id=claims["id"]).first()
@@ -197,7 +198,7 @@ class TransactionCheckout(Resource):
         transactions = []
 
         for transaction in transaction_order.all():
-            QRY_transaction = marshal(transaction. Transactions.response_field)
+            QRY_transaction = marshal(transaction, Transactions.response_field)
             user = Users.query.filter_by(id=QRY_transaction["user_id"]).first()
             QRY_transaction["user"] = marshal(user, Users.response_fields)
             
@@ -233,7 +234,7 @@ class HistoryTransaction(Resource):
         transactions = []
 
         for transaction in transaction_order.all():
-            QRY_transaction = marshal(transaction. Transactions.response_field)
+            QRY_transaction = marshal(transaction, Transactions.response_field)
             publisher = Publishers.query.filter_by(id=QRY_transaction["publisher_id"]).first()
             QRY_transaction["publisher"] = marshal(publisher, Publishers.response_fields)
             
