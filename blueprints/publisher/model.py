@@ -25,7 +25,7 @@ class Publishers(db.Model):
 
     user_id = db.Column(db.Integer, ForeignKey(Users.id, ondelete='CASCADE'), nullable=False)
     ads_spot = db.relationship("AdsSpots", cascade="all, delete-orphan", passive_deletes=True)
-
+    transaction = db.relationship("Transactions", cascade="all, delete-orphan", passive_deletes=True)
    
 
     response_fields ={
@@ -44,6 +44,13 @@ class Publishers(db.Model):
         'created_at' : fields.DateTime,
         'updated_at' : fields.DateTime
         }
+    
+    response_show = {
+        'id' : fields.Integer,
+        'publisher_name' : fields.String,
+        'address' : fields.String,
+        'publisher_pict' : fields.String,
+    }
 
 
     def __init__(self, user_id, publisher_name, address, publisher_pict, company_sertificate, npwp_number, npwp_pict, bank_account_name, bank_account_number, bank_account_detail):
