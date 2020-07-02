@@ -60,7 +60,7 @@ class TransactionResource(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument("payment_method_id", type=int, location="json")
         parser.add_argument("ads_spot_id", type=int, location="json")
-        parser.add_argument("starting_date", type=lambda x: datetime.strptime(x,'%Y-%m-%dT%H:%M:%S'), location="json")
+        parser.add_argument("starting_date", type=lambda x: datetime.strptime(x,"%Y-%m-%d %H:%M:%S"), location="json")
         parser.add_argument("durations", location="json")
         parser.add_argument("purpose", location="json")
         parser.add_argument("design", location="json")
@@ -91,7 +91,7 @@ class TransactionResource(Resource):
 
         
         transaction_detail = TransactionDetails.query.filter_by(transaction_id=transaction.id,ads_spot_id=data["ads_spot_id"]).first()
-        price = ads_spot.price * durations
+        price = ads_spot.price * int(data["durations"])
         if transaction_detail is None:
             td = TransactionDetails(transaction.id, ads_spot.id, data["starting_date"], data["durations"], data["purpose"], price, data["design"], data["add_text"])
             db.session.add(td)
@@ -185,6 +185,7 @@ class TransactionCheckout(Resource):
         
         return {"Status":"Anda berhasil checkout"}, 200
     
+    @jwt_required
     def get(self): #publisher get finished transaction data 
         claims = get_jwt_claims()
         publisher = Publishers.query.filter_by(user_id=claims["id"]).first()
@@ -197,7 +198,7 @@ class TransactionCheckout(Resource):
         transactions = []
 
         for transaction in transaction_order.all():
-            QRY_transaction = marshal(transaction. Transactions.response_field)
+            QRY_transaction = marshal(transaction, Transactions.response_field)
             user = Users.query.filter_by(id=QRY_transaction["user_id"]).first()
             QRY_transaction["user"] = marshal(user, Users.response_fields)
             
@@ -233,7 +234,7 @@ class HistoryTransaction(Resource):
         transactions = []
 
         for transaction in transaction_order.all():
-            QRY_transaction = marshal(transaction. Transactions.response_field)
+            QRY_transaction = marshal(transaction, Transactions.response_field)
             publisher = Publishers.query.filter_by(id=QRY_transaction["publisher_id"]).first()
             QRY_transaction["publisher"] = marshal(publisher, Publishers.response_fields)
             
