@@ -22,6 +22,7 @@ class Users(db.Model):
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
     updated_at = db.Column(db.DateTime(timezone=True), onupdate=func.now())
     publishers = db.relationship("Publishers", cascade="all, delete-orphan", passive_deletes=True)
+    transaction = db.relationship("Transactions", cascade="all, delete-orphan", passive_deletes=True)
    
 
     response_fields ={

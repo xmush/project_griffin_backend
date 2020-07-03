@@ -86,6 +86,7 @@ from blueprints.publisher.resources import bp_publisher
 from blueprints.payment_method.resources import bp_payment_method
 from blueprints.ads_spot.resources import bp_ads_spot
 from blueprints.ads_image.resources import bp_ads_image
+from blueprints.transaction.resources import bp_transaction
 
 app.register_blueprint(bp_auth, url_prefix='/signin')
 app.register_blueprint(bp_user, url_prefix='/user')
@@ -94,5 +95,6 @@ app.register_blueprint(bp_publisher, url_prefix='/publisher')
 app.register_blueprint(bp_payment_method, url_prefix='/payment_method')
 app.register_blueprint(bp_ads_spot, url_prefix='/ads_spot')
 app.register_blueprint(bp_ads_image, url_prefix='/ads_image')
+app.register_blueprint(bp_transaction, url_prefix='/transaction')
 
 db.create_all()

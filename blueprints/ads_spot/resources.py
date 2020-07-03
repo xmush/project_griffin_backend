@@ -28,6 +28,7 @@ class AdsSpotList(Resource):
         parser.add_argument('rp', type=int, location='args', default=25)
         parser.add_argument('created_at', location='args')
         parser.add_argument('publisher_id', location='args')
+        parser.add_argument('product_type_id', location='args')
         parser.add_argument('is_authorized', location='args')
 
         args = parser.parse_args()
@@ -35,6 +36,10 @@ class AdsSpotList(Resource):
         offset = (args['p'] * args['rp']) - args['rp']
 
         qry = AdsSpots.query
+
+        if args['product_type_id'] is not None:
+            qry = qry.filter_by(product_type_id=args["product_type_id"])
+
 
         if args['created_at'] is not None:
             qry = qry.filter_by(created_at=args["created_at"])
@@ -49,6 +54,10 @@ class AdsSpotList(Resource):
         for row in qry.limit(args['rp']).offset(offset).all():
             QRY = marshal(row, AdsSpots.response_fields)
             image = AdsImages.query.filter_by(ads_spot_id=QRY['id']).first()
+            publisher = Publishers.query.filter_by(id=QRY["publisher_id"]).first()
+            category = ProductTypes.query.filter_by(id=QRY["product_type_id"]).first()
+            QRY["category"] = marshal(category, ProductTypes.response_show)
+            QRY["publisher"] = marshal(publisher, Publishers.response_show)
             QRY["image"] = marshal(image, AdsImages.response_field)
             rows.append(QRY)
 
@@ -79,11 +88,8 @@ class AdsSpotResource(Resource):
         parser.add_argument('product_type_id', location='form', required=True)
         parser.add_argument('name', location='form', required=True)
         parser.add_argument('description', location='form', required=True)
+        parser.add_argument('address', location='form', required=True)
         parser.add_argument('street', location='form', required=True)
-        parser.add_argument('subdistrict', location='form', required=True)
-        parser.add_argument('district', location='form', required=True)
-        parser.add_argument('city', location='form', required=True)
-        parser.add_argument('province', location='form', required=True)
         parser.add_argument('latitude', location='form', required=True)
         parser.add_argument('longitude', location='form', required=True)
         parser.add_argument('length', location='form', required=True)
@@ -94,7 +100,6 @@ class AdsSpotResource(Resource):
         parser.add_argument('minimum_duration', location='form', required=True)
         parser.add_argument('side', location='form', required=True)
         parser.add_argument('lighting', location='form', required=True)
-        parser.add_argument('lighting_price', location='form')
         parser.add_argument('banner_price_per_meter',
                             location='form', required=True)
         parser.add_argument('images', type=werkzeug.datastructures.FileStorage,
@@ -115,11 +120,8 @@ class AdsSpotResource(Resource):
             data["product_type_id"],
             data["name"],
             data["description"],
+            data["address"],
             data["street"],
-            data["subdistrict"],
-            data["district"],
-            data["city"],
-            data["province"],
             data["latitude"],
             data["longitude"],
             data["length"],
@@ -130,7 +132,6 @@ class AdsSpotResource(Resource):
             data["minimum_duration"],
             data["side"],
             data["lighting"],
-            data["lighting_price"],
             data["banner_price_per_meter"])
         db.session.add(ads_spot)
         db.session.flush()
@@ -156,11 +157,8 @@ class AdsSpotResource(Resource):
         parser.add_argument('product_type_id', location='form')
         parser.add_argument('name', location='form')
         parser.add_argument('description', location='form')
+        parser.add_argument('address', location='form')
         parser.add_argument('street', location='form')
-        parser.add_argument('subdistrict', location='form')
-        parser.add_argument('district', location='form')
-        parser.add_argument('city', location='form')
-        parser.add_argument('province', location='form')
         parser.add_argument('latitude', location='form')
         parser.add_argument('longitude', location='form')
         parser.add_argument('length', location='form')
@@ -171,7 +169,6 @@ class AdsSpotResource(Resource):
         parser.add_argument('minimum_duration', location='form')
         parser.add_argument('side', location='form')
         parser.add_argument('lighting', location='form')
-        parser.add_argument('lighting_price', location='form')
         parser.add_argument('banner_price_per_meter', location='form')
         data = parser.parse_args()
 
@@ -200,30 +197,15 @@ class AdsSpotResource(Resource):
         else:
             qry.description = qry.description
 
+        if data['address'] is not None and data["address"] != "":
+            qry.address = data['address']
+        else:
+            qry.address = qry.address
+
         if data['street'] is not None and data["street"] != "":
             qry.street = data['street']
         else:
             qry.street = qry.street
-
-        if data['subdistrict'] is not None and data["subdistrict"] != "":
-            qry.subdistrict = data['subdistrict']
-        else:
-            qry.subdistrict = qry.subdistrict
-
-        if data['district'] is not None and data["district"] != "":
-            qry.district = data['district']
-        else:
-            qry.district = qry.district
-
-        if data['city'] is not None and data["city"] != "":
-            qry.city = data['city']
-        else:
-            qry.city = qry.city
-
-        if data['province'] is not None and data["province"] != "":
-            qry.province = data['province']
-        else:
-            qry.province = qry.province
 
         if data['latitude'] is not None and data["latitude"] != "":
             qry.latitude = data['latitude']
@@ -274,11 +256,6 @@ class AdsSpotResource(Resource):
             qry.lighting = data['lighting']
         else:
             qry.lighting = qry.lighting
-
-        if data['lighting_price'] is not None and data["lighting_price"] != "":
-            qry.lighting_price = data['lighting_price']
-        else:
-            qry.lighting_price = qry.lighting_price
 
         if data['banner_price_per_meter'] is not None and data["banner_price_per_meter"] != "":
             qry.banner_price_per_meter = data['banner_price_per_meter']

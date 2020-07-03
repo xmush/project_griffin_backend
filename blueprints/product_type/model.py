@@ -24,6 +24,10 @@ class ProductTypes(db.Model):
         'updated_at':fields.DateTime,
         
     }
+
+    response_show = {
+        'name': fields.String
+    }
     
     def __init__(self, name, icon):
         self.name = name
